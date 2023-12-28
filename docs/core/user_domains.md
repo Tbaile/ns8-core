@@ -106,3 +106,58 @@ print(users_filter)
 groups_filter = lp.get_ldap_groups_search_filter_clause("mydomain")
 print(groups_filter)
 ```
+
+## Bind modules and account domains
+
+If a module wants to use an account domain it must execute a bind
+procedure, so the core is aware of existing relations between modules and
+account domains. When such relations are formally established the core can
+
+- limit/grant access to LDAP resources
+- show the relations in the web user interfaces
+
+For example, a module that uses one domain at a time can unbind the old
+domain and bind the new one with a script like this:
+
+```python
+import agent
+import json
+import os
+import sys
+
+request = json.load(sys.stdin)
+
+# The old domain is unbound
+agent.unbind_user_domain(os.getenv("LDAP_USER_DOMAIN", ""))
+
+# The new domain is bound
+agent.bind_user_domain(request["ldap_domain"])
+
+agent.set_env("LDAP_USER_DOMAIN", request["ldap_domain"])
+```
+
+When the module or the domain is removed from the cluster, the relation
+cleanup occurs automatically.
+
+If the module wants to be notified of any change to the relation between
+modules and user domains it can subscribe the `module-domain-changed`
+event. For instance, this is the payload of such event:
+
+```json
+{
+    "modules": ["mymodule1"],
+    "domains": ["mydomain.test"]
+}
+```
+
+The following Python excerpt checks if the module domain was changed:
+
+```python
+event = json.load(sys.stdin)
+if not os.environ["LDAP_USER_DOMAIN"] in event["domains"]:
+    sys.exit(0) # nothing to do if our domain is among affected domains
+
+# Handle the event by some means, for example
+# - rewrite some config file
+# - reload some service running in a container
+```
