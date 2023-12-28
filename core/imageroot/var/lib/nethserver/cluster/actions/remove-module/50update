@@ -107,6 +107,8 @@ rdb.srem('cluster/favorites', module_id)
 rdb.delete(f'cluster/authorizations/module/{module_id}')
 rdb.hdel('cluster/module_node', module_id)
 
+# TODO: remove SET items matching module_id from cluster/module_domain
+
 # Revoke module permissions, clean up permissions of other modules
 rdb.delete(f'roles/module/{module_id}')
 permpipe = rdb.pipeline()
@@ -131,7 +133,7 @@ trx.publish(agent_id + '/event/module-removed', json.dumps({
     'module': module_id,
     'node': node_id,
 }))
-
+# TODO: raise module-domain-changed
 trx.execute()
 
 json.dump({}, fp=sys.stdout)

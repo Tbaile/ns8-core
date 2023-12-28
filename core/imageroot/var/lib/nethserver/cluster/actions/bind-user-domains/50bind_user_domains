@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+#
+# Copyright (C) 2024 Nethesis S.r.l.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+import sys
+import json
+import agent
+import os
+
+request = json.load(sys.stdin)
+
+domain_list = request["domains"]
+module_id = os.environ["AGENT_TASK_USER"]
+
+# TODO: 1) store the new relation records in Redis
+#       2) raise the event
