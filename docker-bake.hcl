@@ -1,7 +1,8 @@
 target "base" {
     platforms = [
         "linux/arm64",
-        "linux/amd64"
+        "linux/amd64",
+        "linux/arm/v7"
     ]
     cache-from = [
         "type=gha"
