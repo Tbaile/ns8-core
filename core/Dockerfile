@@ -87,3 +87,4 @@ COPY --from=api-moduled /app/api-moduled /usr/local/bin/api-moduled
 COPY --from=ui /app/dist /var/lib/nethserver/cluster/ui
 COPY --from=env /app/core.env /etc/nethserver/core.env
 COPY install.sh /var/lib/nethserver/node/install.sh
+ENTRYPOINT [ "/" ]
