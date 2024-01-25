@@ -9,7 +9,8 @@ WORKDIR /app
 FROM base as agent
 COPY agent/go.mod .
 COPY agent/go.sum .
-RUN go mod download
+RUN --mount=type=cache,target=/go/pkg/mod \
+    go mod download
 COPY agent/models models
 COPY agent/validation validation
 COPY agent/agent.go .
@@ -17,12 +18,14 @@ COPY agent/envstate.go .
 COPY agent/hbuiltin.go .
 COPY agent/hevent.go .
 COPY agent/htask.go .
-RUN CGO_ENABLED=0 go build -v 
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 go build -v 
 
 FROM base as api-server
 COPY api-server/go.mod .
 COPY api-server/go.sum .
-RUN go mod download
+RUN --mount=type=cache,target=/go/pkg/mod \
+    go mod download
 COPY api-server/audit audit
 COPY api-server/configuration configuration
 COPY api-server/methods methods
@@ -34,17 +37,21 @@ COPY api-server/socket socket
 COPY api-server/utils utils
 COPY api-server/api-server-logs.go .
 COPY api-server/api-server.go .
-RUN CGO_ENABLED=0 go build -v api-server-logs.go
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 go build -v api-server-logs.go
 COPY api-server/api-server-multi-arch-build.sh .
-RUN ./api-server-multi-arch-build.sh
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    ./api-server-multi-arch-build.sh
 
 FROM base as api-moduled
 COPY api-moduled/go.sum .
 COPY api-moduled/go.mod .
-RUN go mod download
+RUN --mount=type=cache,target=/go/pkg/mod \
+    go mod download
 COPY api-moduled/validation validation
 COPY api-moduled/api-moduled.go .
-RUN CGO_ENABLED=0 go build -v
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 go build -v
 
 FROM base as env
 ARG CORE_IMAGE
