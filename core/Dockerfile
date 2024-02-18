@@ -64,7 +64,7 @@ RUN echo "CORE_IMAGE=${CORE_IMAGE}" > core.env \
     && echo "RSYNC_IMAGE=${RSYNC_IMAGE}" >> core.env \
     && echo "RESTIC_IMAGE=${RESTIC_IMAGE}" >> core.env \
     && echo "PROMTAIL_IMAGE=${PROMTAIL_IMAGE}" >> core.env \
-    chmod 644 core.env
+    && chmod 644 core.env
 
 FROM --platform=$BUILDPLATFORM node:20.10.0 as ui
 RUN apt-get update \
