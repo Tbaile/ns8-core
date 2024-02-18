@@ -74,14 +74,16 @@ COPY ui/.yarn .yarn
 COPY ui/.yarnrc.yml .
 COPY ui/package.json .
 COPY ui/yarn.lock .
-RUN yarn install --immutable
+RUN --mount=type=cache,target=/root/.yarn/berry/cache \
+    yarn install --immutable
 COPY ui/public public
 COPY ui/src src
 COPY ui/.browserslistrc .
 COPY ui/.eslintrc.js .
 COPY ui/babel.config.js .
 COPY ui/vue.config.js .
-RUN NODE_OPTIONS=--openssl-legacy-provider yarn build \
+RUN --mount=type=cache,target=/app/node_modules/.cache \
+    NODE_OPTIONS=--openssl-legacy-provider yarn build \
     && tidy dist/index.html | grep -oP 'link href=\"css/app~.+\.css\" rel=\"stylesheet\"' | grep -oP 'app~.+\.css' | paste -sd ' ' - > dist/css/core.css
 
 FROM scratch as core
