@@ -197,13 +197,13 @@
                     <template v-else>
                       <NsTextInput
                         :label="$t('init.vpn_cidr')"
-                        v-model.trim="vpnCidr"
-                        :invalid-message="$t(error.vpnCidr)"
+                        v-model.trim="network"
+                        :invalid-message="$t(error.network)"
                         :disabled="loading.getDefaults || isCreatingCluster"
                         tooltipAlignment="end"
                         tooltipDirection="right"
                         class="narrow"
-                        ref="vpnCidr"
+                        ref="network"
                       >
                         <template #tooltip>
                           <span v-html="$t('init.vpn_cidr_tooltip')"></span>
@@ -244,6 +244,8 @@
                                 loading.getDefaults || isCreatingCluster
                               "
                               type="number"
+                              max="65535"
+                              min="1"
                               tooltipAlignment="end"
                               tooltipDirection="right"
                               class="narrow"
@@ -907,7 +909,7 @@ export default {
       focusPasswordField: { element: "" },
       vpnEndpointAddress: "",
       vpnEndpointPort: "",
-      vpnCidr: "",
+      network: "",
       joinCode: "",
       tlsVerify: true,
       joinEndpoint: this.$route.query.endpoint
@@ -947,7 +949,7 @@ export default {
         confirmPassword: "",
         vpnEndpointAddress: "",
         vpnEndpointPort: "",
-        vpnCidr: "",
+        network: "",
         joinCode: "",
         retrieveClusterBackup: "",
         restoreCluster: "",
@@ -1034,7 +1036,7 @@ export default {
       const defaults = taskResult.output;
       this.vpnEndpointAddress = defaults.vpn.host;
       this.vpnEndpointPort = defaults.vpn.port.toString();
-      this.vpnCidr = defaults.vpn.network;
+      this.network = defaults.vpn.network;
       this.loading.getDefaults = false;
 
       if (this.q.page === "create") {
@@ -1295,12 +1297,28 @@ export default {
         this.focusElement("currentPassword");
       }
     },
+    isFqdn(fqdn) {
+      // Regular expression for a valid FQDN
+      const fqdnRegex = /^([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+
+      // Check if the provided FQDN matches the regular expression
+      return fqdnRegex.test(fqdn);
+    },
     validateCreateCluster() {
       this.clearErrors(this);
       let isValidationOk = true;
 
       if (!this.vpnEndpointAddress) {
         this.error.vpnEndpointAddress = "common.required";
+        this.isOpenCreateClusterAccordion = true;
+
+        if (isValidationOk) {
+          this.focusElement("vpnEndpointAddress");
+          isValidationOk = false;
+        }
+      } else if (this.vpnEndpointAddress && !this.isFqdn(this.vpnEndpointAddress)) {
+        // we want to validate enpoint is a hostname
+        this.error.vpnEndpointAddress = "init.not_a_valid_fqdn_endpoint";
         this.isOpenCreateClusterAccordion = true;
 
         if (isValidationOk) {
@@ -1317,28 +1335,13 @@ export default {
           this.focusElement("vpnEndpointPort");
           isValidationOk = false;
         }
-      } else {
-        const vpnEndpointPortNumber = Number(this.vpnEndpointPort);
-
-        if (
-          !(
-            Number.isInteger(vpnEndpointPortNumber) && vpnEndpointPortNumber > 0
-          )
-        ) {
-          this.error.vpnEndpointPort = "error.invalid_port_number";
-
-          if (isValidationOk) {
-            this.focusElement("vpnEndpointPort");
-            isValidationOk = false;
-          }
-        }
       }
 
-      if (!this.vpnCidr) {
-        this.error.vpnCidr = "common.required";
+      if (!this.network) {
+        this.error.network = "common.required";
 
         if (isValidationOk) {
-          this.focusElement("vpnCidr");
+          this.focusElement("network");
           isValidationOk = false;
         }
       }
@@ -1351,6 +1354,12 @@ export default {
       const taskAction = "create-cluster";
       const eventId = this.getUuid();
       this.createClusterProgress = 0;
+
+      // register to task validation
+      this.$root.$once(
+        `${taskAction}-validation-failed-${eventId}`,
+        this.createClusterValidationFailed
+      );
 
       // register to task error
       this.$root.$once(
@@ -1374,7 +1383,7 @@ export default {
         this.createClusterTask({
           action: taskAction,
           data: {
-            network: this.vpnCidr,
+            network: this.network,
             endpoint: this.vpnEndpointAddress + ":" + this.vpnEndpointPort,
           },
           extra: {
@@ -1392,18 +1401,33 @@ export default {
         if (err.response && err.response.status == 403) {
           this.isMaster = false;
         } else {
-          // persistent error notification
-          const notification = {
-            title: this.$t("task.cannot_create_task", { action: taskAction }),
-            description: this.getErrorMessage(err),
-            type: "error",
-            toastTimeout: 0,
-          };
-          this.createNotification(notification);
+          console.error(`error creating task ${taskAction}`, err);
+          this.error.createCluster = this.getErrorMessage(err);
+          this.loading.getDefaults = false;
+          return;
         }
-        return;
       }
       this.isCreatingCluster = true;
+    },
+    createClusterValidationFailed(validationErrors) {
+      this.loading.getDefaults = false;
+      this.isCreatingCluster = false;
+      let focusAlreadySet = false;
+
+      for (const validationError of validationErrors) {
+        const param = validationError.parameter;
+
+        // set i18n error message
+        this.error[param] = this.getI18nStringWithFallback(
+          "init." + validationError.error,
+          "error." + validationError.error
+        );
+
+        if (!focusAlreadySet) {
+          this.focusElement(param);
+          focusAlreadySet = true;
+        }
+      }
     },
     createClusterCompleted(taskContext) {
       this.setClusterInitializedInStore(true);
@@ -1446,7 +1470,7 @@ export default {
         try {
           decoded = atob(this.joinCode);
         } catch (DOMException) {
-          this.error.joinCode = "init.invalid_join_code";
+          this.error.joinCode = "init.the_join_code_can_not_be_decoded";
 
           if (isValidationOk) {
             this.focusElement("joinCode");
@@ -1455,7 +1479,7 @@ export default {
         }
 
         if (!decoded) {
-          this.error.joinCode = "init.invalid_join_code";
+          this.error.joinCode = "init.the_join_code_is_not_correctly_encoded";
 
           if (isValidationOk) {
             this.focusElement("joinCode");
@@ -1465,7 +1489,7 @@ export default {
           let [endpoint, token] = decoded.split("|");
 
           if (!(endpoint && token)) {
-            this.error.joinCode = "init.invalid_join_code";
+            this.error.joinCode = "init.the_join_code_cannot_be_parsed";
 
             if (isValidationOk) {
               this.focusElement("joinCode");
@@ -1554,7 +1578,7 @@ export default {
     joinClusterValidationFailed(validationErrors) {
       console.error("validation failed", validationErrors);
       this.isJoiningCluster = false;
-      this.error.joinCode = "init.invalid_join_code";
+      this.error.joinCode = this.$t("init."+validationErrors[0].error);
       this.focusElement("joinCode");
     },
     async onFileUpload(files) {

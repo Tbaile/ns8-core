@@ -117,7 +117,10 @@
         "update_available": "Aggiornamento disponibile",
         "updates": "Aggiornamenti",
         "source": "Sorgente",
-        "images_label": "Immagini"
+        "images_label": "Immagini",
+        "testing_warning_description": "Alcuni repository software includono versioni non stabili delle applicazioni.",
+        "testing_warning_title": "Abilitazione dei repository di test",
+        "testing_warning_action_label": "Vai a Repository software"
     },
     "nodes": {
         "title": "Nodi",
@@ -176,7 +179,8 @@
         "add_node_to_cluster_step_6": "Incollare il codice di join",
         "set_fqdn": "Imposta FQDN",
         "node_vpn_endpoint_port_tooltip": "I nodi worker utilizzano questo numero di porta per collegarsi al leader. Può differire dalla porta di ascolto di Wireguard 55820. Cambiare questo numero di porta solo se tra il worker e il leader è presente un dispositivo che fa port-forwarding",
-        "show_all_disks": "Mostra tutti i dischi"
+        "show_all_disks": "Mostra tutti i dischi",
+        "nodes_online_cluster_status": "Tutti i nodi sono online"
     },
     "system_logs": {
         "context_node": "Nodo",
@@ -377,7 +381,7 @@
         "domain_is_going_to_be_deleted": "{object} del dominio sta per essere eliminato...",
         "domain_exists": "Il dominio esiste già",
         "domain_already_exists": "Il dominio esiste già",
-        "domain_not_found": "Dominio inesistente",
+        "domain_not_found": "Dominio non trovato",
         "domain": "Dominio",
         "enter_external_domain_name": "Inserisci nome dominio esterno",
         "no_domain_configured": "Nessun dominio configurato",
@@ -436,7 +440,8 @@
         "expiration_min_age": "Durata minima della password",
         "strength_password_min_length": "Lunghezza minima della password",
         "users_admin_page_title": "Portale utente",
-        "users_admin_page_description": "Portale self-service di amministrazione utente"
+        "users_admin_page_description": "Portale self-service di amministrazione utente",
+        "host_format": "Deve essere un nome di dominio o un indirizzo IP valido"
     },
     "action": {
         "configure-module": "Configura app",
@@ -758,7 +763,7 @@
         "save_settings": "Salva impostazioni",
         "enabled": "Abilitato",
         "disabled": "Disabilitato",
-        "delete": "Elimina",
+        "delete": "Delete",
         "advanced": "Avanzate",
         "join_code": "Codice di join",
         "cluster_label": "Etichetta cluster",
@@ -766,12 +771,12 @@
         "cluster_label_tooltip": "Puoi assegnare al cluster un nome facile da ricordare",
         "all_good": "Tutto bene",
         "all_nodes": "Tutti i nodi",
-        "cancel": "Annulla",
+        "cancel": "Cancel",
         "case_sensitive": "Sensibile a maiuscole e minuscole",
-        "close": "Chiudi",
+        "close": "Close",
         "copied_to_clipboard": "Copiato!",
         "copy_to_clipboard": "Copia negli appunti",
-        "clear_search": "Pulisci ricerca",
+        "clear_search": "Clear search",
         "collapse": "Collassa",
         "clear_selection": "Pulisci selezione",
         "clear_filter": "Pulisci filtro",
@@ -780,7 +785,7 @@
         "details": "Dettagli",
         "disable": "Disabilita",
         "done": "Completato",
-        "edit": "Modifica",
+        "edit": "Edit",
         "enable": "Abilita",
         "use_landscape_mode_description": "Questa pagina è ottimizzata per la modalità orizzontale",
         "global_shortcut": "Scorciatoia globale",
@@ -812,8 +817,8 @@
         "none": "Nessuno",
         "x_of_y_selected": "selezionati {selected} di {total}",
         "search": "Ricerca",
-        "no_search_results": "Nessun risultato",
-        "no_search_results_description": "Prova a modificare la query di ricerca",
+        "no_search_results": "No results",
+        "no_search_results_description": "Try changing your search query",
         "success": "Successo",
         "save": "Salva",
         "this_action_is_not_reversible": "Questa azione <strong>NON</strong> è reversibile",
@@ -950,7 +955,22 @@
         "vpn_endpoint_port_tooltip": "I nodi worker utilizzano questo numero di porta per collegarsi al leader. Può differire dalla porta di ascolto di Wireguard 55820. Cambiare questo numero di porta solo se tra il worker e il leader è presente un dispositivo che fa port-forwarding",
         "vpn_cidr_tooltip": "Indirizzo della rete VPN utilizzata dai nodi del cluster per comunicare. Assicurare che questa rete non sia in conflitto con reti esistenti. Notare che la rete VPN non potrà essere cambiata in un secondo momento.",
         "external_domains": "Domini utente esterni",
-        "empty_passphrase": "La password è obbligatoria"
+        "empty_passphrase": "La password è obbligatoria",
+        "hostname_create": "Nome host",
+        "domain_join": "Dominio del nodo worker",
+        "hostname_join": "Nome host del nodo worker",
+        "domain_create": "Dominio",
+        "network_pattern": "Formato di rete non valido",
+        "hostname_format": "Formato nome host non valido",
+        "not_a_private_network": "Deve essere incluso nelle reti IPv4 private: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16",
+        "domain_format": "Formato di dominio non valido",
+        "not_a_valid_fqdn_endpoint": "Nome host assoluto (FQDN) non valido",
+        "not_a_valid_ipv4_network": "Indirizzo di rete IPv4 non valido",
+        "the_join_code_is_not_correctly_encoded": "Join code is not correctly encoded",
+        "cluster_auth_error": "Invalid response",
+        "the_join_code_cannot_be_parsed": "Join code cannot be parsed",
+        "cluster_tls_verify_error": "TLS certificate of leader node is not valid",
+        "the_join_code_can_not_be_decoded": "Join code cannot be decoded"
     },
     "account_provider": {
         "title": "Account provider"
@@ -1195,7 +1215,7 @@
         "samba_admin_username_tooltip_3": "L'utente <strong>administrator</strong> sarà disabilitato e gli verrà assegnata una password casuale",
         "enable_file_server_label": "Fornire condivisioni di file e autenticazione per i client Windows",
         "enable_file_server_tooltip": "Abilitare questa opzione e selezionare l'indirizzo IP desiderato per fornire i servizi Active Directory ai client nella rete privata locale",
-        "enable_file_server_disabled_info": "La condivisioei file e l'autenticazione per i client Windows non possono essere abilitate perché sono già configurate su un altro provider di questo dominio",
+        "enable_file_server_disabled_info": "La condivisione file e l'autenticazione per i client Windows non possono essere abilitate perché sono già configurate su un altro provider di questo dominio",
         "provider_on_vpn_address_message": "Il nuovo provider sarà configurato sull'indirizzo IP VPN <strong>{vpnIpAddress}</strong>",
         "choose_ip_address_warning": "Assicurati di selezionare un indirizzo IP raggiungibile dai client Windows. Questa scelta <strong>NON</strong> è reversibile",
         "file_server": "File server",
@@ -1246,12 +1266,12 @@
         "title": "Firewall"
     },
     "pagination": {
-        "page_number": "Numero pagina",
-        "items_per_page": "Elementi per pagina:",
-        "range_of_total_items": "{range} di {total} elementi",
-        "of_total_pages": "di {total} pagine",
-        "previous_page": "Pagina precedente",
-        "next_page": "Pagina successiva"
+        "page_number": "Page number",
+        "items_per_page": "Items per page:",
+        "range_of_total_items": "{range} of {total} items",
+        "of_total_pages": "of {total} pages",
+        "previous_page": "Previous page",
+        "next_page": "Next page"
     },
     "websocket": {
         "websocket_disconnected": "Websocket disconnessa",

@@ -1,13 +1,13 @@
 {
     "error": {
-        "403": "Eragiketa baimendu gabea",
-        "401": "Autentifikazio baliogabea",
-        "generic_error": "Zerbait okertu da",
-        "error": "Errorea",
-        "network_timeout": "Sarearen denbora-muga",
-        "404": "Baliabidea ez da aurkitu",
-        "network_error": "Sare-errorea",
-        "validation_error": "Balioztatze-errorea",
+        "403": "Operation not authorized",
+        "401": "Invalid authentication",
+        "generic_error": "Something went wrong",
+        "error": "Error",
+        "network_timeout": "Network timeout",
+        "404": "Resource not found",
+        "network_error": "Network error",
+        "validation_error": "Validation error",
         "fqdn_format": "Invalid FQDN format",
         "cannot_retrieve_cluster_tasks": "Cannot retrieve cluster tasks",
         "must_be_between": "Must be between {min} and {max}",
@@ -47,23 +47,23 @@
         "clear_filter": "Iragazkia garbitu",
         "advanced": "Aurreratua",
         "details": "Xehetasunak",
-        "edit": "Editatu",
+        "edit": "Edit",
         "selected": "Hautatuta",
         "collapse": "Tolestu",
-        "clear_search": "Garbitu bilaketa",
+        "clear_search": "Clear search",
         "more_info": "Informazio gehiago",
         "enable": "Gaitu",
         "choose": "Aukeratu",
-        "cancel": "Utzi",
+        "cancel": "Cancel",
         "version": "Bertsioa",
         "settings": "Ezarpenak",
-        "disabled": "Desgaituta",
+        "disabled": "Disabled",
         "disable": "Desgaitu",
         "menu": "Menua",
         "expand": "Zabaldu",
-        "close": "Itxi",
-        "enabled": "Gaituta",
-        "delete": "Ezabatu",
+        "close": "Close",
+        "enabled": "Enabled",
+        "delete": "Delete",
         "hide": "Hide",
         "save_settings": "Save settings",
         "join_code": "Join code",
@@ -119,7 +119,7 @@
         "choose_options_or_input_any_value": "Choose options or input any value",
         "choose_an_option_or_input_any_value": "Choose an option or input any value",
         "not_active": "Inactive",
-        "active": "Active"
+        "active": "Aktiboa"
     },
     "backup": {
         "aws": "Amazon S3",
@@ -207,7 +207,7 @@
         "open_app": "Open app",
         "custom_schedule_tooltip_more_info": "See:",
         "disable_backup": "Disable backup",
-        "backup_repository_exists": "A repository with this URL already exists",
+        "backup_repository_exists": "URL hau duen biltegi bat badago jada",
         "edit_backup": "Edit backup",
         "repo_password_tooltip": "This password is used to encrypt data in the repository. Store this password in a safe place, otherwise you won't be able to restore your backed up data",
         "type_repo_password_to_confirm": "Type repository password to confirm deletion",
@@ -225,7 +225,7 @@
         "select_backup_provider": "Select backup provider",
         "hourly": "Hourly",
         "backup_has_not_run_yet": "Backup has not run yet",
-        "at": "At",
+        "at": "etan",
         "every_day_at": "Every day at {time}",
         "restore": "Restore",
         "samba_placeholder": "Share name",
@@ -306,10 +306,10 @@
         "testing": "Testing",
         "title": "Software repositories",
         "repository_not_accessible": "Repository not accessible",
-        "repository_same_url_already_exists": "A repository with this URL already exists",
+        "repository_same_url_already_exists": "URL hau duen biltegi bat badago jada",
         "url": "URL",
         "name": "Name",
-        "repository_same_name_already_exists": "A repository with this name already exists",
+        "repository_same_name_already_exists": "Badago izen hau duen biltegi bat",
         "status": "Status",
         "no_sw_repositories": "No software repository",
         "edit_repository": "Edit repository",
@@ -349,7 +349,7 @@
         "hide_setup_key": "Hide 2FA setup key"
     },
     "settings_http_routes": {
-        "host_tooltip": "Baliozko ostalari baten adibidea bat: <code>nireapp.domeinua.eus</code>",
+        "host_tooltip": "Baliozko ostalariaren adibide bat: <code>nireapp-a.adibidea.eus</code>",
         "url_tooltip": "Baliozko URLaren adibide bat: <code>http://127.0.0.0:2000</code>",
         "request_lets_encrypt_certificate": "Request Let's Encrypt certificate",
         "node": "Node",
@@ -393,15 +393,15 @@
         "host_placeholder": "E.g. myapp.example.org",
         "skipCertVerify_tooltip": "Skip certificate validation for the backend target URL",
         "skip_cert_verify": "Skip certificate validation",
-        "instance_pattern": "Allowed characters: A-Z, a-z, 0-9, _ and -"
+        "instance_pattern": "Onartutako karaktereak: A-Z, a-z, 0-9, _ eta -"
     },
     "action": {
         "add-user": "Erabiltzaile bat gehitu",
-        "list-backup-repositories": "Babeskopien biltegiak ikusi",
+        "list-backup-repositories": "List backup repositories",
         "add-group": "Talde bat gehitu",
         "add-external-provider": "Kanpoko hornitzailea gehitu",
         "add-external-domain": "Kanpoko domeinua gehitu",
-        "list-backups": "Babeskopiak ikusi",
+        "list-backups": "List backups",
         "list-modules": "Aplikazioak ikusi",
         "add-backup-repository": "Babeskopia biltegia gehitu",
         "add-backup": "Babeskopia gehitu",
@@ -539,10 +539,10 @@
         "domain_summary": "Summary",
         "location": "Location",
         "enter_external_domain_name": "Enter external domain name",
-        "ipaddress_dc_conflict_check_failed": "A provider with this IP already exists",
+        "ipaddress_dc_conflict_check_failed": "IP hau duen hornitzaile bat badago jada",
         "port_connection_error": "Port connection error",
         "port": "Port",
-        "adminuser_string_gte": "Required",
+        "adminuser_string_gte": "Beharrezkoa",
         "tls_required_for_authentication": "TLS required for authentication",
         "configure_provider": "Configure provider",
         "strength": "Strength policy",
@@ -594,7 +594,7 @@
         "unconfigured_domains_or_providers_title": "There are unconfigured domains or providers",
         "enable_the_password_expiration": "The minimum password age setting determines the period of time (in days) that a password must be used before the user can change it. The maximum password age setting determines the period of time (in days) that a password can be used before the system requires the user to change it",
         "domain_is_going_to_be_deleted": "Domain {object} is going to be deleted...",
-        "adminpass_string_gte": "Required",
+        "adminpass_string_gte": "Beharrezkoa",
         "enable_complexity_check_tips": "Enforce complexity by requesting uppercase, lowercase, numbers and symbols",
         "create_domain": "Create domain",
         "domain": "Domain",
@@ -622,7 +622,8 @@
         "hostname_pattern": "Invalid pattern",
         "ipaddress_private_check_failed": "Invalid IP address",
         "users_admin_page_description": "User administration self service portal",
-        "samba": "Samba"
+        "samba": "Samba",
+        "host_format": "Must be a valid domain name or IP address"
     },
     "system_logs": {
         "context_module": "Aplikazioa",
@@ -663,7 +664,7 @@
         "vertical_layout": "Vertical layout"
     },
     "task": {
-        "cannot_create_task": "Ezin da zeregina {action} sortu",
+        "cannot_create_task": "Cannot create task {action}",
         "completed": "Bukatuta",
         "configure": "Konfiguratu",
         "subtask_failed_validation": "Subtask <strong>{task}</strong> failed validation",
@@ -691,7 +692,7 @@
         "audit_info_placeholder": "Search anything inside data content of log",
         "end_time_label": "End time (24-hour)",
         "cannot_retrieve_audit_trail": "Cannot retrieve audit trail",
-        "auditInfo": "Audit info",
+        "auditInfo": "Ikuskaritza informazioa",
         "users": "Users",
         "no_log_found": "No log found",
         "search": "Search",
@@ -759,7 +760,8 @@
         "shutdown_node_after_removal": "Shut down {node} after node removal to stop the apps running on it",
         "node_is_offline_description": "Check node status and connectivity",
         "remove_node_from_cluster": "Remove node from cluster",
-        "validation_endpoint_address_format": "Invalid format"
+        "validation_endpoint_address_format": "Invalid format",
+        "nodes_online_cluster_status": "Nodo guztiak konektatuta daude"
     },
     "init": {
         "join_cluster_description": "Lehendik dagoen kluster batera nodo hau gehitu",
@@ -824,7 +826,22 @@
         "not_valid_gpg_file": "Invalid GPG file",
         "skip_apps_restore": "Skip apps restore",
         "external_domains": "External user domains",
-        "empty_passphrase": "The password is mandatory"
+        "empty_passphrase": "The password is mandatory",
+        "hostname_create": "Hostname",
+        "domain_join": "Worker node domain",
+        "hostname_join": "Worker node hostname",
+        "domain_create": "Domain",
+        "network_pattern": "Invalid network format",
+        "not_a_private_network": "Must be included in the private IPv4 network addresses: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16",
+        "hostname_format": "Invalid hostname format",
+        "domain_format": "Invalid domain format",
+        "not_a_valid_fqdn_endpoint": "Invalid fully qualified domain name",
+        "not_a_valid_ipv4_network": "Invalid IPv4 network address",
+        "cluster_auth_error": "Invalid response",
+        "the_join_code_is_not_correctly_encoded": "Join code is not correctly encoded",
+        "the_join_code_cannot_be_parsed": "Join code cannot be parsed",
+        "cluster_tls_verify_error": "TLS certificate of leader node is not valid",
+        "the_join_code_can_not_be_decoded": "Join code cannot be decoded"
     },
     "login": {
         "2fa_code_required": "6 digituko kodea beharrezkoa da",
@@ -922,7 +939,7 @@
         "documentation": "Documentation",
         "about_to_uninstall_instance": "<strong>{instance}</strong> will be uninstalled from the cluster",
         "app_without_ui_name_cloned_to_node": "{instance} cloned to {node} as {module_id}",
-        "apps_update_will_start_in_a_moment": "Apps update will start in a moment...",
+        "apps_update_will_start_in_a_moment": "Aplikazioen eguneraketa une batean hasiko da...",
         "no_app_found": "No app found",
         "update_app": "Update {app}",
         "edit_instance_label": "Edit instance label",
@@ -957,7 +974,10 @@
         "search_placeholder": "Search apps",
         "instances_update_will_start_in_a_moment": "Instances update will start in a moment...",
         "core_app_name": "{productName} core",
-        "move_app": "Move app"
+        "move_app": "Move app",
+        "testing_warning_description": "Some software repositories include non-stable versions of applications",
+        "testing_warning_title": "Testing repositories enabled",
+        "testing_warning_action_label": "Go to Software repositories"
     },
     "account_provider": {
         "title": "Kontu hornitzailea"
@@ -975,7 +995,7 @@
         "url": "URL"
     },
     "settings": {
-        "title": "Ezarpenak"
+        "title": "Settings"
     },
     "notification": {
         "abort": "Abortatu",
@@ -1265,7 +1285,7 @@
         "authentication_token_helper": "Obtain a registration token from the subscription web portal",
         "remove_subscription": "Remove subscription",
         "subscription_cannot_be_enabled": "Subscription is not available",
-        "remote_support_description": "Allow {productName} support team to remotely access your cluster",
+        "remote_support_description": "Baimendu {productName} laguntza-taldeari zure klusterra urrunetik atzitzeko",
         "remove_cluster_subscription_description": "You are going to remove the subscription plan. This will disable the subscription features.",
         "stop_session_support": "End session",
         "must_be_32_chars_but_less_than_128": "Must be between 32 and 128 characters",
