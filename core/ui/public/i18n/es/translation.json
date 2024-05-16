@@ -1,7 +1,7 @@
 {
     "error": {
         "403": "Operación no autorizada",
-        "401": "Autenticación no válida",
+        "401": "Autentificación no válida",
         "generic_error": "Algo salió mal",
         "error": "Error",
         "network_timeout": "Tiempo de espera de red agotado",
@@ -26,7 +26,8 @@
         "cannot_retrieve_cluster_nodes": "No se pueden recuperar los nodos del clúster",
         "cannot_retrieve_users_admin_configuration": "No se puede recuperar la administración del portal de usuarios",
         "must_be_between": "Debe estar entre {min} y {max}",
-        "cannot_retrieve_subscription_status": "No se puede recuperar el estado de la suscripción"
+        "cannot_retrieve_subscription_status": "No se puede recuperar el estado de la suscripción",
+        "cannot_retrieve_email_notification_status": "No se puede recuperar el estado de las notificaciones por correo electrónico"
     },
     "about": {
         "animated_icons_by": "Iconos animados por",
@@ -44,7 +45,7 @@
         "enter_external_domain_name": "Escribe el nombre de dominio externo",
         "adminuser_string_gte": "Obligatorio",
         "configure_provider": "Configurar proveedor",
-        "domain_pattern": "Patrón de dominio no válido. Escribe algo como 'mi.dominio.es'",
+        "domain_pattern": "Patrón de dominio no válido. Introduzca algo como 'mi.dominio.org'.",
         "ipaddress_format": "Dirección IP no válida",
         "install_provider": "Instalar proveedor",
         "base_dn": "DN base",
@@ -139,7 +140,7 @@
         "save_settings": "Guardar ajustes",
         "join_code": "Código de unión",
         "copied_to_clipboard": "¡Copiado!",
-        "edit": "Edit",
+        "edit": "Editar",
         "save": "Guardar",
         "collapse": "Contraer",
         "understood_delete": "Entiendo, borrar",
@@ -151,12 +152,12 @@
         "case_sensitive": "Distingue mayúsculas y minúsculas",
         "click_here_to_upload": "Clic aquí para subir",
         "copy_to_clipboard": "Copiar al portapapeles",
-        "clear_search": "Clear search",
+        "clear_search": "Borrar búsqueda",
         "more_info": "Más info",
         "enable": "Habilitar",
         "choose": "Elige",
-        "delete": "Delete",
-        "cancel": "Cancel",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
         "finish": "Finalizar",
         "core_module_c": "Aplicación principal | Aplicaciones principales",
         "node": "Nodo",
@@ -177,7 +178,7 @@
         "advanced": "Avanzado",
         "choose_an_option_or_input_any_value": "Elige una opción o escribe cualquier valor",
         "details": "Detalles",
-        "close": "Close",
+        "close": "Cerrar",
         "enabled": "Habilitado",
         "optional": "opcional",
         "no_label": "No hay etiquetas",
@@ -186,7 +187,7 @@
         "nodes_c": "Nodo | Nodos",
         "next": "Siguiente",
         "previous": "Anterior",
-        "no_search_results": "No results",
+        "no_search_results": "No hay resultados",
         "view_instance_logs": "Ver registros de {instance}",
         "show_more": "Ver más",
         "selected": "Seleccionado",
@@ -208,7 +209,7 @@
         "reload_page": "Recargar página",
         "select": "Seleccionar",
         "remember": "Recordar",
-        "no_search_results_description": "Try changing your search query",
+        "no_search_results_description": "Intenta cambiar tu consulta de búsqueda",
         "show_less": "Ver menos",
         "success": "Completado",
         "search": "Buscar",
@@ -248,7 +249,6 @@
         "azure_account_key": "Clave de cuenta de almacenamiento de Azure",
         "cluster_short": "Almacenamiento local",
         "b2_account_id": "ID de clave de aplicación B2",
-        "url": "URL",
         "repository_name_helper": "Un nombre fácil de recordar para el repositorio",
         "backup_completed_successfully": "{backupName} se completó correctamente",
         "backup_repository_auth_error_description": "Verificar la configuración del repositorio",
@@ -256,7 +256,6 @@
         "choose_destination_repository": "Elige el repositorio de destino",
         "backup_page_tooltip_2": "Los datos del clúster se componen de <strong>datos de configuración del clúster</strong> y <strong>datos de aplicaciones</strong>.",
         "smb_host": "Nombre de host o dirección IP",
-        "backblaze_placeholder": "nombre-depósito",
         "parameters_format": "Valor incorrecto",
         "backup_disabled": "Copia de seguridad deshabilitada",
         "aws_access_key_id": "ID de clave de acceso de AWS",
@@ -314,13 +313,10 @@
         "add_repository": "Añadir repositorio",
         "restoring_app_to_node": "Restaurando {app} a {node}",
         "edit_backup_repository": "Editar repositorio de respaldo",
-        "url_placeholder": "depósito, nombre del contenedor o s3host/nombre_contenedor",
         "repository": "Repositorio",
         "schedule_action": "Calendario",
-        "s3_placeholder": "minio.miservidor.ess/nombre-bucket",
         "backup_name": "Nombre de la copia de seguridad",
         "provider": "Proveedor",
-        "azure_placeholder": "nombre-contenedor",
         "not_backed_up_instances_selected": "Las instancias de las que no se realizó una copia de seguridad están seleccionadas actualmente",
         "backup_snapshots": "Caturas de respaldo",
         "configure": "Configurar",
@@ -333,7 +329,6 @@
         "cluster_placeholder": "Elige un nodo en el clúster",
         "backup_enabled": "Copia de seguridad habilitada",
         "no_backup_configured": "No hay copias de seguridad configuradas",
-        "aws_placeholder": "nombre-depósito",
         "retention": "Retención",
         "delete_repo_explanation_2": "Asegúrese de haber almacenado la contraseña del repositorio en un lugar seguro, o no podrá restaurar los datos de su copia de seguridad desde el repositorio original.",
         "every_month_at_time": "Cada mes, el día {dayNum} a las {time}",
@@ -375,7 +370,6 @@
         "replace_existing_app": "Reemplazar la aplicación existente {app}",
         "cluster_backup_password_warning_description_2": "Establece una contraseña de cifrado segura. Luego, descarga la copia de seguridad y guárdala en un lugar seguro.",
         "select_backup_provider": "Seleccionar proveedor de respaldo",
-        "samba_placeholder": "Nombre de carpeta compartida",
         "cluster_backup_password_warning": "Debes establecer la contraseña de cifrado",
         "run_backup": "Crear copia de seguridad",
         "genericS3_secret_access_key": "Clave de acceso secreta",
@@ -395,7 +389,7 @@
         "azure_url_label": "Nombre del contenedor de Azure",
         "backblaze_url_label": "Nombre del depósito de B2",
         "smb_url_tooltip": "Es posible especificar una ruta de subcarpeta compartida utilizando la barra diagonal \"/\"",
-        "genericS3_url_tooltip": "Escribe una dirección con el formato server_fqdn/nombre_del_depósito. Nota: el servidor debe tener un certificado TLS válido"
+        "genericS3_url_tooltip": "Introduzca una dirección con el formato \"serverfqdn/bucketname\". Nota: el servidor debe tener un certificado TLS válido."
     },
     "settings_http_routes": {
         "host_tooltip": "Un ejemplo de host válido es: <code>myapp.example.org</code>",
@@ -455,7 +449,7 @@
         "search": "Buscar"
     },
     "action": {
-        "list-backup-repositories": "Lista de repositorios de copia de seguridad",
+        "list-backup-repositories": "Lista de repositorios de la copia de seguridad",
         "list-backups": "Listado de copias de seguridad",
         "configure-module": "Configurar aplicación",
         "alter-backup-repository": "Modificar el repositorio de respaldo",
@@ -543,7 +537,8 @@
         "stop-support-session": "Interrumpir la sesión de soporte",
         "start-support-session": "Iniciar sesión de soporte",
         "get-subscription": "Obtener suscripción",
-        "register-cluster-subscription": "Registrar suscripción al clúster"
+        "register-cluster-subscription": "Registrar suscripción al clúster",
+        "set-retention": "Fijar la retención"
     },
     "settings_cluster_admins": {
         "user_already_exists": "El administrador ya existe",
@@ -712,7 +707,35 @@
         "start_date": "Fecha de inicio",
         "select_timezone": "Selecciona la zona horaria",
         "try_changing_search_filters": "Intenta cambiar los filtros de búsqueda",
-        "vertical_layout": "Diseño vertical"
+        "vertical_layout": "Diseño vertical",
+        "current_instance": "Instancia activa",
+        "loki": {
+            "title": "Loki",
+            "uninstall": "Desinstalar",
+            "active_to": "a",
+            "inactive": "Inactivo",
+            "retention_days": "Retención de {count} día | Retención de {count} días",
+            "active_from": "Activo desde",
+            "greater_than_0": "Introduzca un número mayor que 0",
+            "valid_number": "Introduzca un número válido",
+            "tooltip": "Los nodos del cluster transmiten sus flujos de logs a la instancia activa de Loki, que opera en el nodo líder. Cuando se sustituye un nodo líder, el nodo líder anterior conserva su instancia Loki inactiva, lo que permite que la página Registros del sistema busque en ella hasta que se desinstale.",
+            "uninstall_description": "¿Desinstalar <strong>{instance}</strong>? Los registros almacenados dentro de esta instancia también se eliminarán. Esta acción <strong>NO</strong> es reversible.",
+            "active": "Instancia activa",
+            "loki_label": "Etiqueta de Loki",
+            "understood_uninstall": "Entiendo, desinstala",
+            "offline": "Sin conexión",
+            "uninstall_instance": "Desinstalar {name}",
+            "retention": "Retención",
+            "edit_retention": "Editar retención",
+            "edit_label": "Editar la etiqueta",
+            "type_to_confirm": "Escribe <strong>{name}</strong> para confirmar",
+            "days": "Días",
+            "no_logs": "Esta instancia no contiene ningún registro"
+        },
+        "loki_instance_title": "Instancia múltiple de Loki",
+        "loki_tooltip": "Busca registros de la instancia activa de Loki, de un nodo líder anterior o de una copia de seguridad de Loki.",
+        "loki_instance_description": "Los registros se almacenan en más de una instancia de Loki. Elija una en el campo de abajo.",
+        "loki_instance": "Instancia de Loki"
     },
     "task": {
         "cannot_create_task": "No se puede crear la tarea {action}",
@@ -754,8 +777,6 @@
         "restore_apps": "Restaurar aplicaciones",
         "review_node_fqdn_title": "Revisión del FQDN del nodo",
         "custom_routes": "Rutas HTTP personalizadas",
-        "invalid_join_code": "Código de unión no válido",
-        "domains": "Dominios",
         "creating_cluster": "Creando clúster...",
         "restore_cluster": "Restaurar clúster",
         "configure_node": "Configurar este nodo",
@@ -767,7 +788,6 @@
         "create_cluster": "Crear clúster",
         "forbidden_hostname_value": "Nombre de host prohibido",
         "url_format": "URL no válida",
-        "domain": "Dominio",
         "join_cluster_description": "Agregar este nodo a un clúster existente",
         "restore_cluster_description": "Restaurar clúster y aplicaciones desde copia de seguridad",
         "vpn_endpoint_address": "Dirección pública de VPN líder",
@@ -783,7 +803,6 @@
         "join_cluster_instead": "Unirse a un clúster existente en su lugar",
         "skip_apps_restore_1": "¿Quieres omitir la restauración de aplicaciones?",
         "backup_password_tooltip": "Contraseña de cifrado utilizada para cifrar la copia de seguridad.",
-        "hostname": "Nombre de host",
         "restore_from_cluster_backup_file": "Restaurar desde el archivo de copia de seguridad del clúster",
         "not_valid_gpg_file": "Archivo GPG no válido",
         "node_added_to_cluster": "Nodo {nodeId} añadido al clúster",
@@ -823,11 +842,11 @@
         "domain_format": "Formato de dominio inválido",
         "not_a_valid_fqdn_endpoint": "Nombre de dominio completamente calificado inválido",
         "not_a_valid_ipv4_network": "Dirección de red IPv4 inválida",
-        "the_join_code_is_not_correctly_encoded": "Join code is not correctly encoded",
-        "cluster_auth_error": "Invalid response",
-        "the_join_code_cannot_be_parsed": "Join code cannot be parsed",
-        "cluster_tls_verify_error": "TLS certificate of leader node is not valid",
-        "the_join_code_can_not_be_decoded": "Join code cannot be decoded"
+        "the_join_code_is_not_correctly_encoded": "El código de unión no está codificado correctamente",
+        "cluster_auth_error": "Respuesta inválida",
+        "the_join_code_cannot_be_parsed": "El código de unión no se puede analizar",
+        "cluster_tls_verify_error": "El certificado del nodo líder no es válido",
+        "the_join_code_can_not_be_decoded": "El código de unión no se puede decodificar"
     },
     "settings_account": {
         "i_have_stored_setup_key": "He guardado la <strong>clave de configuración 2FA</strong> en un lugar seguro",
@@ -963,7 +982,9 @@
         "instances_not_backed_up_c": "{num} aplicación no respaldada | {num} aplicaciones no respaldadas",
         "backups_failed_c": "{num} copia de seguridad fallida | {num} copias de seguridad fallidas",
         "go_to_subscription": "Suscripción",
-        "subscription_status": "Suscripción"
+        "subscription_status": "Suscripción",
+        "email_notification": "Notificaciones por correo electrónico",
+        "go_to_settings": "Ir a los ajustes"
     },
     "password": {
         "long_enough": "Suficientemente larga",
@@ -1026,7 +1047,10 @@
         "search_user": "Buscar usuario",
         "no_group_description": "No hay ningún grupo en este dominio",
         "search_group": "Buscar grupo",
-        "username": "Nombre de usuario"
+        "username": "Nombre de usuario",
+        "user_string_lte": "Debe ser menor o igual a 255 caracteres",
+        "display_name_string_lte": "Debe ser menor o igual a 256 caracteres",
+        "user_pattern": "Comience con una letra, seguida solo de letras, dígitos y los símbolos -._"
     },
     "settings_acme_servers": {
         "node": "Nodo",
@@ -1165,12 +1189,12 @@
         "title": "Clúster"
     },
     "pagination": {
-        "items_per_page": "Items per page:",
-        "next_page": "Next page",
-        "page_number": "Page number",
-        "range_of_total_items": "{range} of {total} items",
-        "of_total_pages": "of {total} pages",
-        "previous_page": "Previous page"
+        "items_per_page": "Elementos por página:",
+        "next_page": "Página siguiente",
+        "page_number": "Número de página",
+        "range_of_total_items": "{range} de {total} elementos",
+        "of_total_pages": "de {total} páginas",
+        "previous_page": "Página anterior"
     },
     "settings_tls_certificates": {
         "delete_certificate_description": "¿Eliminar el certificado TLS para <strong>{fqdn}</strong>?",
@@ -1206,10 +1230,7 @@
     "smarthost": {
         "choose": "Elige",
         "hostname_label": "Servidor SMTP",
-        "username_label_tooltip": "Escribe la cuenta de usuario o déjala en blanco si el servidor no requiere autenticación",
-        "hostname_label_tooltip": "Escribe el nombre de dominio completo del servidor SMTP",
         "username_placeholder": "por ejemplo pepe@dominio.es",
-        "port_label_tooltip": "Escribe el puerto TCP del servidor SMTP",
         "port_placeholder": "por ejemplo 25, 465 o 587",
         "encrypt_smtp_enum": "Debe ser uno de los siguientes: ninguno, starttls, tls",
         "port_invalid_type": "Debe ser un número de puerto válido (1-65535)",
@@ -1231,7 +1252,16 @@
         "hostname_placeholder": "por ejemplo smtp.dominio.es",
         "cannot_connect_to_server": "El servidor rechaza la conexión, inténtalo de nuevo, por favor",
         "valid_certificate_verification_error": "El certificado no es válido para el servidor, deberías intentar desactivar la verificación del certificado",
-        "username_helper": "Deja en blanco para no autenticar"
+        "username_helper": "Deja en blanco para no autenticar",
+        "manual_configuration": "Configuración manual",
+        "node": "Nodo {nodeId}",
+        "configuration": "Configuración",
+        "mail_app_instance": "Utilizar la aplicación de correo",
+        "no_mail_app_instance": "No se ha encontrado ninguna instancia de la aplicación de correo",
+        "choose_instance": "Elegir instancia",
+        "no_mail_app_instance_description": "Puedes instalar la aplicación de correo desde el Centro de Software",
+        "address_error": "Error en la resolución del nombre",
+        "go_to_software_center": "Ir al centro de software"
     },
     "notification": {
         "confirm_abort": "Confirmar cancelación",

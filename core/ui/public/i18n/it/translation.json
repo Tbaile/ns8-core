@@ -218,7 +218,35 @@
         "stop_following": "Smetti di seguire",
         "expand_filters": "Espandi filtri",
         "follow": "Segui",
-        "follow_logs": "Segui log"
+        "follow_logs": "Segui log",
+        "loki_instance_title": "Istanze Loki multiple",
+        "current_instance": "Istanza attiva",
+        "loki": {
+            "uninstall": "Disinstalla",
+            "active_to": "a",
+            "inactive": "Inattivo",
+            "retention_days": "Conserva per un giorno | Conserva per {count} giorni",
+            "title": "Loki",
+            "active_from": "Attivo da",
+            "greater_than_0": "Inserisci un numero maggiore di 0",
+            "valid_number": "Inserisci un numero valido",
+            "tooltip": "I nodi del cluster trasmettono i loro flussi di log all'istanza Loki attiva, che opera sul nodo leader. Quando un nodo leader viene sostituito, il nodo leader precedente mantiene la sua istanza Loki inattiva, permettendo alla pagina System log di cercare su di esso fino a quando non viene disinstallato.",
+            "uninstall_description": "Disinstallare <strong>{instance}</strong>? I log memorizzati al suo interno verranno eliminati. Questa azione <strong>NON è reversibile</strong>.",
+            "active": "Istanza attiva",
+            "loki_label": "Etichetta Loki",
+            "understood_uninstall": "Capisco, disinstalla",
+            "offline": "Offline",
+            "uninstall_instance": "Disinstalla {name}",
+            "retention": "Conservazione",
+            "edit_retention": "Modifica conservazione",
+            "edit_label": "Modifica etichetta",
+            "type_to_confirm": "Digitare <strong>{name}</strong> per confermare",
+            "days": "Giorni",
+            "no_logs": "Questa istanza non contiene alcun log"
+        },
+        "loki_tooltip": "Ricerca log dall'istanza Loki attiva, da un precedente nodo leader o da un backup di Loki.",
+        "loki_instance_description": "I log sono memorizzati in più istanze Loki. Scegline una dal campo sottostante.",
+        "loki_instance": "Istanza Loki"
     },
     "node_detail": {
         "title": "Dettagli nodo",
@@ -247,7 +275,7 @@
         "num_core": "{num}-core"
     },
     "notification": {
-        "abort": "Annulla",
+        "abort": "Interrompi",
         "confirm_abort": "Conferma annullamento",
         "recent": "Recente",
         "no_notifications": "Nessuna notifica",
@@ -330,12 +358,9 @@
         "title": "Notifiche email",
         "enabled": "Invia notifiche con un server SMTP",
         "hostname_label": "Server SMTP",
-        "hostname_label_tooltip": "Immettere il nome di dominio completo del server SMTP",
         "hostname_placeholder": "es. smtp.example.com",
         "username_label": "Nome utente",
-        "username_label_tooltip": "Digitare l'account utente o lasciare vuoto se il server non richiede alcuna autenticazione",
         "port_label": "Numero porta SMTP",
-        "port_label_tooltip": "Inserire la porta TCP del server SMTP",
         "starttls": "STARTLS",
         "tls": "TLS",
         "cannot_authenticate_to_server": "Il server rifiuta la connessione, probabilmente a causa di un login o di una password errati",
@@ -346,7 +371,16 @@
         "encrypt_smtp": "Crittografia SMTP",
         "choose": "Scegli",
         "username_placeholder": "es. john@example.com",
-        "username_helper": "Lasciare vuoto se privo di autenticazione"
+        "username_helper": "Lasciare vuoto se privo di autenticazione",
+        "go_to_software_center": "Vai a Software center",
+        "address_error": "Errore di risoluzione del nome",
+        "node": "Nodo {nodeId}",
+        "no_mail_app_instance_description": "È possibile installare l'app Mail dal Software center",
+        "manual_configuration": "Configurazione manuale",
+        "mail_app_instance": "Utilizza istanza dell'app Mail",
+        "configuration": "Configurazione",
+        "no_mail_app_instance": "Nessuna istanza di app Mail trovata",
+        "choose_instance": "Scegli l'istanza"
     },
     "domains": {
         "ldap": "LDAP",
@@ -441,7 +475,8 @@
         "strength_password_min_length": "Lunghezza minima della password",
         "users_admin_page_title": "Portale utente",
         "users_admin_page_description": "Portale self-service di amministrazione utente",
-        "host_format": "Deve essere un nome di dominio o un indirizzo IP valido"
+        "host_format": "Deve essere un nome di dominio o un indirizzo IP valido",
+        "users_admin_page_tooltips": "Il portale utente consente agli utenti di dominio di modificare la propria password. Il portale è accessibile agli utenti anche su qualsiasi nodo con una replica dell'domain provider. L'URL generico è https://{node_fqdn_or_ip}/users-admin/{domain}/"
     },
     "action": {
         "configure-module": "Configura app",
@@ -532,7 +567,8 @@
         "stop-support-session": "Termina sessione di supporto",
         "start-support-session": "Avvia sessione di supporto",
         "get-subscription": "Ottieni subscription",
-        "register-cluster-subscription": "Registra la subscription del cluster"
+        "register-cluster-subscription": "Registra la subscription del cluster",
+        "set-retention": "Imposta conservazione"
     },
     "backup": {
         "configure": "Configura",
@@ -556,7 +592,6 @@
         "azure_short": "Azure",
         "backblaze_short": "B2",
         "delete_repo_explanation_1": "Verrà eliminato anche qualsiasi backup pianificato che utilizza questo repository, ma i dati di cui è stato eseguito il backup rimarranno intatti nel repository originale. Questa azione <strong>NON</strong> è reversibile.",
-        "url_placeholder": "Nome del bucket",
         "repository_name_helper": "Un nome facile da ricordare per il repository",
         "backup_repository_exists": "Esiste già un repository con questo URL",
         "aws_access_key_id": "Access key ID AWS",
@@ -652,7 +687,6 @@
         "instances": "istanza | istanze",
         "select_backup_provider": "Seleziona il provider per il backup",
         "repository_name": "Nome repository",
-        "url": "URL",
         "schedule": "Pianifica",
         "retention": "Retention",
         "repository": "Repository",
@@ -680,10 +714,6 @@
         "restore_app": "Ripristina un'app",
         "replace_existing_app": "Sostituisci l'app esistente {app}",
         "repositories_tooltip": "Questi sono i repository in cui viene eseguito il backup delle app",
-        "azure_placeholder": "es. myazurecontainer",
-        "backblaze_placeholder": "es. mybucket",
-        "aws_placeholder": "es. mybucket",
-        "s3_placeholder": "es. minio.example.com/mybucket",
         "genericS3_access_key_id": "ID chiave di accesso",
         "genericS3_secret_access_key": "Chiave di cifratura",
         "azure_account_name": "Nome account Azure",
@@ -699,7 +729,6 @@
         "parameters_format": "Valore scorretto",
         "smb_short": "SMB",
         "smb": "Condivisione file di Windows (SMB2/3)",
-        "samba_placeholder": "Nome condivisione",
         "smb_domain": "Nome dominio (NT/Workgroup)",
         "node": "Nodo",
         "cluster_placeholder": "Selezionare un nodo del cluster",
@@ -712,7 +741,7 @@
         "azure_url_label": "Nome container di Azure",
         "backblaze_url_label": "Nome bucket di B2",
         "smb_url_tooltip": "È possibile specificare una sotto-directory della share con il separatore \"/\" (slash)",
-        "genericS3_url_tooltip": "Enter an address with format server_fqdn/bucket_name. Note: the server must have a valid TLS certificate"
+        "genericS3_url_tooltip": "Inserisci un indirizzo con il formato \"serverfqdn/bucketname\". Nota: il server deve avere un certificato TLS valido"
     },
     "login": {
         "password": "Password",
@@ -759,11 +788,11 @@
     },
     "common": {
         "required": "Obbligatorio",
-        "processing": "Elaborazione in corso...",
+        "processing": "In elaborazione…",
         "save_settings": "Salva impostazioni",
         "enabled": "Abilitato",
         "disabled": "Disabilitato",
-        "delete": "Delete",
+        "delete": "Elimina",
         "advanced": "Avanzate",
         "join_code": "Codice di join",
         "cluster_label": "Etichetta cluster",
@@ -771,21 +800,21 @@
         "cluster_label_tooltip": "Puoi assegnare al cluster un nome facile da ricordare",
         "all_good": "Tutto bene",
         "all_nodes": "Tutti i nodi",
-        "cancel": "Cancel",
+        "cancel": "Annulla",
         "case_sensitive": "Sensibile a maiuscole e minuscole",
-        "close": "Close",
+        "close": "Chiudi",
         "copied_to_clipboard": "Copiato!",
         "copy_to_clipboard": "Copia negli appunti",
-        "clear_search": "Clear search",
+        "clear_search": "Svuota ricerca",
         "collapse": "Collassa",
         "clear_selection": "Pulisci selezione",
-        "clear_filter": "Pulisci filtro",
+        "clear_filter": "Rimuovi filtro",
         "upload_drop_target_text": "Fai clic o trascina e rilascia il file qui",
         "core_module_c": "App di base | App di base",
         "details": "Dettagli",
         "disable": "Disabilita",
         "done": "Completato",
-        "edit": "Edit",
+        "edit": "Modifica",
         "enable": "Abilita",
         "use_landscape_mode_description": "Questa pagina è ottimizzata per la modalità orizzontale",
         "global_shortcut": "Scorciatoia globale",
@@ -817,8 +846,8 @@
         "none": "Nessuno",
         "x_of_y_selected": "selezionati {selected} di {total}",
         "search": "Ricerca",
-        "no_search_results": "No results",
-        "no_search_results_description": "Try changing your search query",
+        "no_search_results": "Nessun risultato",
+        "no_search_results_description": "Prova a cambiare la tua ricerca",
         "success": "Successo",
         "save": "Salva",
         "this_action_is_not_reversible": "Questa azione <strong>NON</strong> è reversibile",
@@ -870,7 +899,8 @@
         "invalid_username_or_password": "Nome utente o password non validi",
         "invalid_value": "Valore non valido",
         "cannot_retrieve_users_admin_configuration": "Portale gestione utenti non disponibile",
-        "cannot_retrieve_subscription_status": "Impossibile ottenere lo stato della subscription"
+        "cannot_retrieve_subscription_status": "Impossibile ottenere lo stato della subscription",
+        "cannot_retrieve_email_notification_status": "Non è possibile recuperare lo stato delle notifiche e-mail"
     },
     "task": {
         "configure": "Configura",
@@ -903,7 +933,6 @@
         "join_cluster_instead": "Esegui invece il join a un cluster esistente",
         "join_cluster_description": "Aggiungi questo nodo a un cluster esistente",
         "redirect_cluster": "Nodo Worker",
-        "invalid_join_code": "Codice di join non valido",
         "redirect_cluster_link": "Vai a Amministrazione cluster",
         "node_added_to_cluster": "Nodo {nodeId} aggiunto al cluster",
         "restore_cluster": "Ripristina cluster",
@@ -920,7 +949,6 @@
         "configure_node": "Configura questo nodo",
         "current_password": "Password attuale dell'amministratore",
         "backup_password_tooltip": "Password di crittografia utilizzata per cifrare il backup.",
-        "domains": "Domini",
         "skip_apps_restore_1": "Vuoi saltare il ripristino delle app?",
         "new_password": "Nuova password di amministrazione",
         "vpn_endpoint_address": "Indirizzo pubblico VPN del leader",
@@ -945,8 +973,6 @@
         "reading_backup_repositories": "Lettura dei repository di backup...",
         "custom_routes": "Rotte HTTP personalizzate",
         "custom_certificates": "Certificati caricati",
-        "hostname": "Nome host",
-        "domain": "Dominio",
         "set_fqdn": "Imposta FQDN",
         "review_node_fqdn_title": "Verifica FQDN del nodo",
         "review_node_fqdn_description": "Imposta il nome dominio completo (FQDN) di questo nodo del cluster",
@@ -966,11 +992,11 @@
         "domain_format": "Formato di dominio non valido",
         "not_a_valid_fqdn_endpoint": "Nome host assoluto (FQDN) non valido",
         "not_a_valid_ipv4_network": "Indirizzo di rete IPv4 non valido",
-        "the_join_code_is_not_correctly_encoded": "Join code is not correctly encoded",
-        "cluster_auth_error": "Invalid response",
-        "the_join_code_cannot_be_parsed": "Join code cannot be parsed",
-        "cluster_tls_verify_error": "TLS certificate of leader node is not valid",
-        "the_join_code_can_not_be_decoded": "Join code cannot be decoded"
+        "the_join_code_is_not_correctly_encoded": "Il codice di join non ha il formato corretto",
+        "cluster_auth_error": "Risposta non valida",
+        "the_join_code_cannot_be_parsed": "Il codice di join non può essere interpretato",
+        "cluster_tls_verify_error": "Il certificato TLS del nodo leader non è valido",
+        "the_join_code_can_not_be_decoded": "Il codice di join non può essere decodificato"
     },
     "account_provider": {
         "title": "Account provider"
@@ -1063,7 +1089,9 @@
         "go_to_nodes": "Vai a Nodi",
         "apps_installed_c": "App installata | App installate",
         "go_to_subscription": "Vai a Subscription",
-        "subscription_status": "Subscription"
+        "subscription_status": "Subscription",
+        "email_notification": "Notifiche email",
+        "go_to_settings": "Vai alle impostazioni"
     },
     "domain_users": {
         "attributes": "Attributi",
@@ -1108,7 +1136,10 @@
         "no_group_description": "Non c'è nessun gruppo in questo dominio",
         "search_group": "Cerca gruppo",
         "user_already_exists": "L'utente esiste già",
-        "group_already_exists": "Il gruppo esiste già"
+        "group_already_exists": "Il gruppo esiste già",
+        "user_string_lte": "Deve essere inferiore o uguale a 255 caratteri",
+        "display_name_string_lte": "Deve essere inferiore o uguale a 256 caratteri",
+        "user_pattern": "Carattere non valido \"{tok}\". Sono consentiti solo lettere, cifre, - e _."
     },
     "domain_configuration": {
         "add_provider": "Aggiungi provider",
@@ -1266,12 +1297,12 @@
         "title": "Firewall"
     },
     "pagination": {
-        "page_number": "Page number",
-        "items_per_page": "Items per page:",
-        "range_of_total_items": "{range} of {total} items",
-        "of_total_pages": "of {total} pages",
-        "previous_page": "Previous page",
-        "next_page": "Next page"
+        "page_number": "Numero di pagina",
+        "items_per_page": "Elementi per pagina:",
+        "range_of_total_items": "{range} di {total} elementi",
+        "of_total_pages": "di {totale} pagine",
+        "previous_page": "Pagina precedente",
+        "next_page": "Pagina successiva"
     },
     "websocket": {
         "websocket_disconnected": "Websocket disconnessa",

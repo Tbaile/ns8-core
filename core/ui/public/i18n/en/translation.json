@@ -112,7 +112,8 @@
         "path_pattern": "Invalid path pattern",
         "fqdn_format": "Invalid FQDN format",
         "cannot_retrieve_users_admin_configuration": "Cannot retrieve users portal administration",
-        "cannot_retrieve_subscription_status": "Cannot retrieve subscription status"
+        "cannot_retrieve_subscription_status": "Cannot retrieve subscription status",
+        "cannot_retrieve_email_notification_status": "Cannot retrieve email notifications status"
     },
     "websocket": {
         "websocket_disconnected": "Websocket disconnected",
@@ -325,6 +326,7 @@
         "get-node-status": "Get node status",
         "remove-module": "Remove app",
         "set-name": "Set name",
+        "set-retention": "Set retention",
         "list-user-domains": "List user domains",
         "configure-module": "Configure app",
         "add-external-domain": "Add external domain",
@@ -436,7 +438,7 @@
         "aws_url_label": "AWS bucket name",
         "backblaze_url_label": "B2 bucket name",
         "genericS3_url_label": "Bucket address",
-        "genericS3_url_tooltip": "Enter an address with format server_fqdn/bucket_name. Note: the server must have a valid TLS certificate",
+        "genericS3_url_tooltip": "Enter an address with format \"serverfqdn/bucketname\". Note: the server must have a valid TLS certificate",
         "genericS3_placeholder": "e.g. myminio.example.com/mybucket",
         "smb_url_label": "Share name",
         "backup_repository_exists": "A repository with this URL already exists",
@@ -930,7 +932,35 @@
         "timezone": "Timezone",
         "select_timezone": "Select timezone",
         "local": "Local",
-        "utc": "UTC"
+        "utc": "UTC",
+        "current_instance": "Active instance",
+        "loki_instance": "Loki instance",
+        "loki_instance_title": "Multiple Loki instance",
+        "loki_instance_description": "Logs are stored in more than one Loki instance. Choose one in the field below.",
+        "loki_tooltip": "Search logs from the active Loki instance, from a former leader node or from a Loki backup.",
+        "loki": {
+            "title": "Loki",
+            "tooltip": "Cluster nodes transmit their log streams to the active Loki instance, which operates on the leader node. When a leader node is replaced, the previous leader node retains its inactive Loki instance, allowing the System logs page to search through it until it is uninstalled.",
+            "active": "Active instance",
+            "inactive": "Inactive",
+            "offline": "Offline",
+            "retention": "Retention",
+            "days": "Days",
+            "retention_days": "Retention {count} day | Retention {count} days",
+            "edit_retention": "Edit retention",
+            "active_from": "Active from",
+            "active_to": "to",
+            "no_logs": "This instance does not contains any log",
+            "edit_label": "Edit label",
+            "loki_label": "Loki label",
+            "type_to_confirm": "Type <strong>{name}</strong> to confirm",
+            "uninstall": "Uninstall",
+            "uninstall_description": "Uninstall <strong>{instance}</strong>? Logs stored inside this instance will be deleted too. This action is <strong>NOT</strong> reversible.",
+            "uninstall_instance": "Uninstall {name}",
+            "understood_uninstall": "I understand, uninstall",
+            "valid_number": "Insert a valid number",
+            "greater_than_0": "Enter a number greater than 0"
+        }
     },
     "audit_trail": {
         "title": "Audit trail",
@@ -966,7 +996,9 @@
         "updated_available_c": "Available update | Available updates",
         "core_update_available": "Core update available",
         "subscription_status": "Subscription",
-        "go_to_subscription": "Go to Subscription"
+        "go_to_subscription": "Go to Subscription",
+        "email_notification": "Email notifications",
+        "go_to_settings": "Go to settings"
     },
     "domains": {
         "title": "Domains and users",
@@ -1142,7 +1174,10 @@
         "group_already_exists": "Group already exists",
         "create_group_group": "Create group {group}",
         "edit_group_group": "Edit group {group}",
-        "delete_group_group": "Delete group {group}"
+        "delete_group_group": "Delete group {group}",
+        "user_pattern": "Start with a letter, followed by only letters, digits, and the symbols -._",
+        "user_string_lte": "Must be less than or equal to 255 characters",
+        "display_name_string_lte": "Must be less than or equal to 256 characters"
     },
     "domain_configuration": {
         "title": "Domain configuration",
@@ -1273,6 +1308,14 @@
         "animated_icons_by": "Animated icons by"
     },
     "smarthost": {
+        "node": "Node {nodeId}",
+        "manual_configuration": "Manual configuration",
+        "mail_app_instance": "Use Mail app instance",
+        "configuration": "Configuration",
+        "choose_instance": "Choose instance",
+        "no_mail_app_instance": "No Mail app instance found",
+        "no_mail_app_instance_description": "You can install Mail app from Software center",
+        "go_to_software_center": "Go to Software center",
         "title": "Email notifications",
         "enabled": "Send notifications with an SMTP server",
         "hostname_label": "SMTP server",
@@ -1289,6 +1332,7 @@
         "tls": "TLS",
         "choose": "Choose",
         "tls_verify": "Verify the TLS certificate",
+        "address_error": "Name resolution error",
         "connection_timeout_error": "The connection issued a timeout error, verify the SMTP port number and the SMTP server name",
         "cannot_authenticate_to_server": "The server refuses the connection, it is probably due to a bad login or bad password",
         "cannot_connect_to_server": "The server refuses the connection, please try again.",
