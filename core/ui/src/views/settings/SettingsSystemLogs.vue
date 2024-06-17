@@ -225,25 +225,24 @@
             :title="$t('common.please_read_carefully')"
             :showCloseButton="false"
           />
-          <div
-            v-html="
-              $tc('system_logs.loki.uninstall_description', lokiToUninstall, {
+          <div>
+            {{
+              $t("system_logs.loki.uninstall_description", {
                 name: lokiToUninstall
                   ? lokiToUninstall.instance_label
                     ? lokiToUninstall.instance_label
                     : lokiToUninstall.instance_id
                   : undefined,
               })
-            "
-          ></div>
-          <div
-            class="mg-top-xlg"
-            v-html="
-              $tc('system_logs.loki.type_to_confirm', lokiToUninstall, {
+            }}
+          </div>
+          <div class="mg-top-xlg">
+            {{
+              $t("system_logs.loki.type_to_confirm", {
                 name: lokiToUninstall ? lokiToUninstall.instance_id : undefined,
               })
-            "
-          ></div>
+            }}
+          </div>
           <cv-form @submit.prevent="uninstallLokiInstance">
             <NsTextInput
               v-model="userInputUninstall"
@@ -446,23 +445,7 @@ export default {
       this.newRetention = null;
       this.getClusterLokiInstances();
     },
-    validateLokiInstanceLabel() {
-      this.clearErrors(this);
-      let isValidationOk = true;
-
-      if (!this.newLabel) {
-        this.error.newLabel = this.$t("common.required");
-        isValidationOk = false;
-      }
-
-      return isValidationOk;
-    },
     async setLokiInstanceLabel() {
-      const isValidationOk = this.validateLokiInstanceLabel();
-      if (!isValidationOk) {
-        return;
-      }
-
       this.error.setLokiInstanceLabel = "";
       this.loading.setLokiInstanceLabel = true;
       const taskAction = "set-name";

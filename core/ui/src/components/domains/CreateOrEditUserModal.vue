@@ -164,7 +164,7 @@ export default {
         alterUser: "",
         getDomainUser: "",
         user: "",
-        displayName: "",
+        display_name: "",
         newPassword: "",
         confirmPassword: "",
         groups: "",
@@ -285,6 +285,15 @@ export default {
 
         if (isValidationOk) {
           this.focusElement("user");
+          isValidationOk = false;
+        }
+      }
+      // displayName is required
+      if (!this.displayName) {
+        this.error.display_name = this.$t("common.required");
+
+        if (isValidationOk) {
+          this.focusElement("display_name");
           isValidationOk = false;
         }
       }
@@ -423,7 +432,9 @@ export default {
       for (const validationError of validationErrors) {
         const param = validationError.parameter;
         // set i18n error message
-        this.error[param] = this.$t("domain_users." + validationError.error, {tok: validationError.value});
+        this.error[param] = this.$t("domain_users." + validationError.error, {
+          tok: validationError.value,
+        });
 
         if (!focusAlreadySet) {
           this.focusElement(param);

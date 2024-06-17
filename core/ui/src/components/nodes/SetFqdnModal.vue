@@ -29,7 +29,7 @@
       <cv-form v-else @submit.prevent="setFqdn">
         <template>
           <cv-text-input
-            :label="$t('init.hostname')"
+            :label="$t('init.hostname_create')"
             v-model.trim="hostname"
             :invalid-message="error.hostname"
             :disabled="loading.getFqdn || loading.setFqdn"
@@ -37,7 +37,7 @@
           >
           </cv-text-input>
           <cv-text-input
-            :label="$t('init.domain')"
+            :label="$t('init.domain_create')"
             v-model.trim="domain"
             placeholder="example.org"
             :invalid-message="error.domain"
@@ -119,7 +119,7 @@ export default {
       );
 
       const res = await to(
-        this.createNodeTask(1, {
+        this.createNodeTask(this.node.id, {
           action: taskAction,
           extra: {
             title: this.$t("action." + taskAction),
@@ -209,7 +209,7 @@ export default {
       );
 
       const res = await to(
-        this.createNodeTask(1, {
+        this.createNodeTask(this.node.id, {
           action: taskAction,
           data: {
             hostname: this.hostname,
