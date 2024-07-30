@@ -11,6 +11,9 @@ import sys
 import agent
 from cluster import modules
 
+def get_active(element):
+    return element['active']
+
 redis_client = agent.redis_connect()
 default_instance = redis_client.get("cluster/default_instance/loki")
 instances = modules.list_installed(redis_client).get("ghcr.io/nethserver/loki", [])
@@ -27,8 +30,8 @@ for instance in instances:
 
     try:
         task_response = agent.tasks.run(
-            agent_id=f'module/{instance["id"]}',
-            action='get-configuration',
+            agent_id=f"module/{instance['id']}",
+            action="get-configuration",
             endpoint="redis://cluster-leader"
         )
         if task_response["exit_code"] == 0:
@@ -37,6 +40,8 @@ for instance in instances:
             item["active_from"] = task_response["output"]["active_from"]
             if "active_to" in task_response["output"]:
                 item["active_to"] = task_response["output"]["active_to"]
+            item["cloud_log_manager"] = task_response["output"]["cloud_log_manager"]
+            item["syslog"] = task_response["output"]["syslog"]
         else:
             item["offline"] = True
     except Exception as e:
@@ -44,6 +49,8 @@ for instance in instances:
 
     response.append(item)
 
+response.sort(key=get_active, reverse=True)
+
 json.dump({
-    'instances': response
+    "instances": response
 }, sys.stdout)

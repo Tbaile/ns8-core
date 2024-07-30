@@ -24,278 +24,346 @@
       </cv-column>
     </cv-row>
     <cv-row>
-      <cv-column :md="4" :max="4">
-        <NsInfoCard
-          light
-          :title="numUpdates.toString()"
-          :description="$tc('cluster_status.updated_available_c', numUpdates)"
-          :icon="Upgrade32"
-          :loading="loading.listModules || loading.listCoreModules"
-          :isErrorShown="error.listCoreModules"
-          :errorTitle="$t('error.cannot_retrieve_available_apps')"
-          :errorDescription="error.listCoreModules"
-          class="min-height-card"
+      <cv-column>
+        <!-- card grid -->
+        <div
+          class="card-grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4"
         >
-          <template slot="content">
-            <div class="card-rows">
-              <div
-                v-if="isCoreUpdateAvailable"
-                class="card-row mg-top-sm icon-and-text"
-              >
-                <NsSvg :svg="Warning16" class="icon ns-warning" />
-                <span>{{ $t("cluster_status.core_update_available") }}</span>
-              </div>
-              <div class="card-row">
-                <NsButton
-                  kind="ghost"
-                  :icon="ArrowRight20"
-                  @click="$router.push('/software-center?search=&view=updates')"
+          <NsInfoCard
+            light
+            :title="numUpdates.toString()"
+            :description="$tc('cluster_status.updated_available_c', numUpdates)"
+            :icon="Upgrade32"
+            :loading="loading.listModules || loading.listCoreModules"
+            :isErrorShown="error.listCoreModules"
+            :errorTitle="$t('error.cannot_retrieve_available_apps')"
+            :errorDescription="error.listCoreModules"
+            class="min-height-card"
+          >
+            <template slot="content">
+              <div class="card-rows">
+                <div
+                  v-if="isCoreUpdateAvailable"
+                  class="card-row mg-top-sm icon-and-text"
                 >
-                  {{ $t("cluster_status.go_to_software_center") }}
-                </NsButton>
-              </div>
-            </div>
-          </template>
-        </NsInfoCard>
-      </cv-column>
-      <cv-column :md="4" :max="4">
-        <NsInfoCard
-          light
-          :title="$t('cluster_status.subscription_status')"
-          :icon="Badge32"
-          :loading="loading.getSubscription"
-          :isErrorShown="error.getSubscription"
-          :errorTitle="$t('error.cannot_retrieve_subscription_status')"
-          :errorDescription="error.getSubscription"
-          class="min-height-card"
-        >
-          <template slot="content">
-            <div class="card-rows">
-              <div class="card-row">
-                <div v-if="!loading.getSubscription" class="card-row">
-                  <cv-tag
-                    v-if="subscription_status === 'active'"
-                    kind="green"
-                    :label="$t('common.active')"
-                  ></cv-tag>
-                  <cv-tag
-                    v-else
-                    kind="high-contrast"
-                    :label="$t('common.not_active')"
-                  ></cv-tag>
+                  <NsSvg :svg="Warning16" class="icon ns-warning" />
+                  <span>{{ $t("cluster_status.core_update_available") }}</span>
                 </div>
-              </div>
-              <div
-                v-if="support_active && !loading.getSubscription"
-                class="card-row"
-              >
-                <div class="mg-top-sm icon-and-text">
-                  <NsSvg :svg="InformationFilled16" class="icon ns-info" />
-                  <span>{{
-                    $t("settings_subscription.remote_support_in_progress")
-                  }}</span>
-                </div>
-              </div>
-              <div v-if="!loading.getSubscription" class="card-row">
-                <NsButton
-                  kind="ghost"
-                  :icon="ArrowRight20"
-                  @click="$router.push('/settings/subscription')"
-                >
-                  {{ $t("cluster_status.go_to_subscription") }}
-                </NsButton>
-              </div>
-            </div>
-          </template>
-        </NsInfoCard>
-      </cv-column>
-      <cv-column :md="4" :max="4">
-        <NsInfoCard
-          light
-          :title="installedModules.length.toString()"
-          :description="
-            $tc('cluster_status.apps_installed_c', installedModules.length)
-          "
-          :icon="Application32"
-          :loading="loading.listModules"
-          :isErrorShown="error.listModules"
-          :errorTitle="$t('error.cannot_retrieve_available_apps')"
-          :errorDescription="error.listModules"
-          class="min-height-card"
-        >
-          <template slot="content">
-            <NsButton
-              kind="ghost"
-              :icon="ArrowRight20"
-              @click="$router.push('/software-center?search=&view=installed')"
-            >
-              {{ $t("cluster_status.go_to_software_center") }}
-            </NsButton>
-          </template>
-        </NsInfoCard>
-      </cv-column>
-      <cv-column :md="4" :max="4">
-        <NsInfoCard
-          light
-          :title="nodes.length.toString()"
-          :description="$tc('common.nodes_c', nodes.length)"
-          :icon="Chip32"
-          :loading="loading.getClusterStatus"
-          :isErrorShown="error.getClusterStatus"
-          :errorTitle="$t('error.cannot_retrieve_cluster_nodes')"
-          :errorDescription="error.getClusterStatus"
-          class="min-height-card"
-        >
-          <template slot="content">
-            <div class="card-rows">
-              <div
-                class="card-row"
-                v-if="!loading.getClusterStatus && nodes.length > 1"
-              >
-                <div class="mg-top-sm">
-                  <div
-                    v-if="nodesOffline.length"
-                    class="card-row icon-and-text"
+                <div class="card-row">
+                  <NsButton
+                    kind="ghost"
+                    :icon="ArrowRight20"
+                    @click="
+                      $router.push('/software-center?search=&view=updates')
+                    "
                   >
-                    <NsSvg :svg="ErrorFilled16" class="icon ns-error" />
-                    <span>
-                      {{
-                        $tc("nodes.nodes_offline_c", nodesOffline.length, {
-                          num: nodesOffline.length,
-                        })
-                      }}
-                    </span>
-                  </div>
-                  <div v-else class="card-row icon-and-text">
-                    <NsSvg :svg="CheckmarkFilled16" class="icon ns-success" />
-                    <span>
-                      {{ $t("nodes.nodes_online_cluster_status") }}
-                    </span>
-                  </div>
+                    {{ $t("cluster_status.go_to_software_center") }}
+                  </NsButton>
                 </div>
               </div>
+            </template>
+          </NsInfoCard>
+          <NsInfoCard
+            light
+            :title="$t('cluster_status.subscription_status')"
+            :icon="Badge32"
+            :loading="loading.getSubscription"
+            :isErrorShown="error.getSubscription"
+            :errorTitle="$t('error.cannot_retrieve_subscription_status')"
+            :errorDescription="error.getSubscription"
+            class="min-height-card"
+          >
+            <template slot="content">
+              <div class="card-rows">
+                <div class="card-row">
+                  <div v-if="!loading.getSubscription" class="card-row">
+                    <cv-tag
+                      v-if="subscription_status === 'active'"
+                      kind="green"
+                      :label="$t('common.active')"
+                    ></cv-tag>
+                    <cv-tag
+                      v-else
+                      kind="high-contrast"
+                      :label="$t('common.not_active')"
+                    ></cv-tag>
+                  </div>
+                </div>
+                <div
+                  v-if="support_active && !loading.getSubscription"
+                  class="card-row"
+                >
+                  <div class="mg-top-sm icon-and-text">
+                    <NsSvg :svg="InformationFilled16" class="icon ns-info" />
+                    <span>{{
+                      $t("settings_subscription.remote_support_in_progress")
+                    }}</span>
+                  </div>
+                </div>
+                <div v-if="!loading.getSubscription" class="card-row">
+                  <NsButton
+                    kind="ghost"
+                    :icon="ArrowRight20"
+                    @click="$router.push('/settings/subscription')"
+                  >
+                    {{ $t("cluster_status.go_to_subscription") }}
+                  </NsButton>
+                </div>
+              </div>
+            </template>
+          </NsInfoCard>
+          <NsInfoCard
+            light
+            :title="installedModules.length.toString()"
+            :description="
+              $tc('cluster_status.apps_installed_c', installedModules.length)
+            "
+            :icon="Application32"
+            :loading="loading.listModules"
+            :isErrorShown="error.listModules"
+            :errorTitle="$t('error.cannot_retrieve_available_apps')"
+            :errorDescription="error.listModules"
+            class="min-height-card"
+          >
+            <template slot="content">
               <NsButton
                 kind="ghost"
                 :icon="ArrowRight20"
-                @click="$router.push('/nodes')"
+                @click="$router.push('/software-center?search=&view=installed')"
               >
-                {{ $t("cluster_status.go_to_nodes") }}
+                {{ $t("cluster_status.go_to_software_center") }}
               </NsButton>
-            </div>
-          </template>
-        </NsInfoCard>
-      </cv-column>
-      <cv-column :md="4" :max="4">
-        <NsInfoCard
-          light
-          :title="backups.length.toString()"
-          :description="$tc('backup.backups_scheduled_c', backups.length)"
-          :icon="Save32"
-          :loading="loading.listBackups"
-          :isErrorShown="error.listBackups"
-          :errorTitle="$t('error.cannot_retrieve_backups')"
-          :errorDescription="error.listBackups"
-          class="min-height-card"
-        >
-          <template slot="content">
-            <div class="card-rows">
-              <div
-                v-if="!loading.listBackups && !error.listBackups"
-                class="card-row mg-top-sm"
-              >
-                <template
-                  v-if="erroredBackups.length || instancesNotBackedUp.length"
+            </template>
+          </NsInfoCard>
+          <NsInfoCard
+            light
+            :title="nodes.length.toString()"
+            :description="$tc('common.nodes_c', nodes.length)"
+            :icon="Chip32"
+            :loading="loading.getClusterStatus"
+            :isErrorShown="error.getClusterStatus"
+            :errorTitle="$t('error.cannot_retrieve_cluster_nodes')"
+            :errorDescription="error.getClusterStatus"
+            class="min-height-card"
+          >
+            <template slot="content">
+              <div class="card-rows">
+                <div
+                  class="card-row"
+                  v-if="!loading.getClusterStatus && nodes.length > 1"
                 >
-                  <div
-                    v-if="erroredBackups.length"
-                    class="card-row icon-and-text"
+                  <div class="mg-top-sm">
+                    <div
+                      v-if="nodesOffline.length"
+                      class="card-row icon-and-text"
+                    >
+                      <NsSvg :svg="ErrorFilled16" class="icon ns-error" />
+                      <span>
+                        {{
+                          $tc("nodes.nodes_offline_c", nodesOffline.length, {
+                            num: nodesOffline.length,
+                          })
+                        }}
+                      </span>
+                    </div>
+                    <div v-else class="card-row icon-and-text">
+                      <NsSvg :svg="CheckmarkFilled16" class="icon ns-success" />
+                      <span>
+                        {{ $t("nodes.nodes_online_cluster_status") }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-row">
+                  <NsButton
+                    kind="ghost"
+                    :icon="ArrowRight20"
+                    @click="$router.push('/nodes')"
                   >
-                    <NsSvg :svg="ErrorFilled16" class="icon ns-error" />
-                    <span>
-                      {{
-                        $tc(
-                          "cluster_status.backups_failed_c",
-                          erroredBackups.length,
-                          { num: erroredBackups.length }
-                        )
-                      }}
-                    </span>
-                  </div>
-                  <div
-                    v-if="instancesNotBackedUp.length"
-                    class="card-row icon-and-text"
-                  >
-                    <NsSvg :svg="Warning16" class="icon ns-warning" />
-                    <span>
-                      {{
-                        $tc(
-                          "cluster_status.instances_not_backed_up_c",
-                          instancesNotBackedUp.length,
-                          { num: instancesNotBackedUp.length }
-                        )
-                      }}
-                    </span>
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="card-row icon-and-text">
-                    <NsSvg :svg="CheckmarkFilled16" class="icon ns-success" />
-                    <span>{{ $t("common.all_good") }}</span>
-                  </div>
-                </template>
-              </div>
-              <div class="card-row">
-                <NsButton
-                  kind="ghost"
-                  :icon="ArrowRight20"
-                  @click="$router.push('/backup')"
-                >
-                  {{ $t("cluster_status.go_to_backup") }}
-                </NsButton>
-              </div>
-            </div>
-          </template>
-        </NsInfoCard>
-      </cv-column>
-      <cv-column :md="4" :max="4">
-        <NsInfoCard
-          light
-          :title="$t('cluster_status.email_notification')"
-          :icon="Email32"
-          :loading="loading.getEmailNotification"
-          :isErrorShown="error.getEmailNotification"
-          :errorTitle="$t('error.cannot_retrieve_email_notification_status')"
-          :errorDescription="error.getEmailNotification"
-          class="min-height-card"
-        >
-          <template slot="content">
-            <div class="card-rows">
-              <div class="card-row">
-                <div v-if="!loading.getEmailNotification" class="card-row">
-                  <cv-tag
-                    v-if="emailNotificationEnabled"
-                    kind="green"
-                    :label="$t('common.enabled')"
-                  ></cv-tag>
-                  <cv-tag
-                    v-else
-                    kind="high-contrast"
-                    :label="$t('common.disabled')"
-                  ></cv-tag>
+                    {{ $t("cluster_status.go_to_nodes") }}
+                  </NsButton>
                 </div>
               </div>
-              <div class="card-row">
-                <NsButton
-                  kind="ghost"
-                  :icon="ArrowRight20"
-                  @click="$router.push('/settings/smarthost')"
+            </template>
+          </NsInfoCard>
+          <NsInfoCard
+            light
+            :title="backups.length.toString()"
+            :description="$tc('backup.backups_scheduled_c', backups.length)"
+            :icon="Save32"
+            :loading="loading.listBackups"
+            :isErrorShown="error.listBackups"
+            :errorTitle="$t('error.cannot_retrieve_backups')"
+            :errorDescription="error.listBackups"
+            class="min-height-card"
+          >
+            <template slot="content">
+              <div class="card-rows">
+                <div
+                  v-if="!loading.listBackups && !error.listBackups"
+                  class="card-row mg-top-sm"
                 >
-                  {{ $t("cluster_status.go_to_settings") }}
-                </NsButton>
+                  <template
+                    v-if="erroredBackups.length || instancesNotBackedUp.length"
+                  >
+                    <div
+                      v-if="erroredBackups.length"
+                      class="card-row icon-and-text"
+                    >
+                      <NsSvg :svg="ErrorFilled16" class="icon ns-error" />
+                      <span>
+                        {{
+                          $tc(
+                            "cluster_status.backups_failed_c",
+                            erroredBackups.length,
+                            { num: erroredBackups.length }
+                          )
+                        }}
+                      </span>
+                    </div>
+                    <div
+                      v-if="instancesNotBackedUp.length"
+                      class="card-row icon-and-text"
+                    >
+                      <NsSvg :svg="Warning16" class="icon ns-warning" />
+                      <span>
+                        {{
+                          $tc(
+                            "cluster_status.instances_not_backed_up_c",
+                            instancesNotBackedUp.length,
+                            { num: instancesNotBackedUp.length }
+                          )
+                        }}
+                      </span>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <div class="card-row icon-and-text">
+                      <NsSvg :svg="CheckmarkFilled16" class="icon ns-success" />
+                      <span>{{ $t("common.all_good") }}</span>
+                    </div>
+                  </template>
+                </div>
+                <div class="card-row">
+                  <NsButton
+                    kind="ghost"
+                    :icon="ArrowRight20"
+                    @click="$router.push('/backup')"
+                  >
+                    {{ $t("cluster_status.go_to_backup") }}
+                  </NsButton>
+                </div>
               </div>
-            </div>
-          </template>
-        </NsInfoCard>
+            </template>
+          </NsInfoCard>
+          <NsInfoCard
+            light
+            :title="$t('cluster_status.email_notification')"
+            :icon="Email32"
+            :loading="loading.getEmailNotification"
+            :isErrorShown="error.getEmailNotification"
+            :errorTitle="$t('error.cannot_retrieve_email_notification_status')"
+            :errorDescription="error.getEmailNotification"
+            class="min-height-card"
+          >
+            <template slot="content">
+              <div class="card-rows">
+                <div class="card-row">
+                  <div v-if="!loading.getEmailNotification" class="card-row">
+                    <cv-tag
+                      v-if="emailNotificationEnabled"
+                      kind="green"
+                      :label="$t('common.enabled')"
+                    ></cv-tag>
+                    <cv-tag
+                      v-else
+                      kind="high-contrast"
+                      :label="$t('common.disabled')"
+                    ></cv-tag>
+                  </div>
+                </div>
+                <div class="card-row">
+                  <NsButton
+                    kind="ghost"
+                    :icon="ArrowRight20"
+                    @click="$router.push('/settings/smarthost')"
+                  >
+                    {{ $t("cluster_status.go_to_settings") }}
+                  </NsButton>
+                </div>
+              </div>
+            </template>
+          </NsInfoCard>
+          <NsInfoCard
+            light
+            :title="$t('cluster_status.system_logs')"
+            :description="
+              $tc('cluster_status.active_instance', activeLokiInstance, {
+                instance: activeLokiInstance,
+              })
+            "
+            :icon="Catalog32"
+            :loading="loading.lokiInstance"
+            :isErrorShown="error.lokiInstance"
+            :errorTitle="
+              $t('system_logs.loki.cannot_retrieve_system_logs_status')
+            "
+            :errorDescription="error.lokiInstance"
+            class="min-height-card"
+          >
+            <template slot="content">
+              <div class="card-rows">
+                <div
+                  v-if="cloudLogManagerForwarderStatus == 'active'"
+                  class="card-row mg-top-sm icon-and-text"
+                >
+                  <NsSvg :svg="CheckmarkFilled16" class="icon ns-success" />
+                  <span>{{
+                    $t(
+                      "cloud_log_manager_forwarder.cloud_log_manager_export_enabled"
+                    )
+                  }}</span>
+                </div>
+                <div
+                  v-if="cloudLogManagerForwarderStatus == 'failed'"
+                  class="card-row mg-top-sm icon-and-text"
+                >
+                  <NsSvg :svg="ErrorFilled16" class="icon ns-error" />
+                  <span>{{
+                    $t(
+                      "cloud_log_manager_forwarder.cloud_log_manager_export_failed"
+                    )
+                  }}</span>
+                </div>
+                <div
+                  v-if="syslogForwarderStatus == 'active'"
+                  class="card-row mg-top-sm icon-and-text"
+                >
+                  <NsSvg :svg="CheckmarkFilled16" class="icon ns-success" />
+                  <span>{{
+                    $t("syslog_forwarder.syslog_export_enabled")
+                  }}</span>
+                </div>
+                <div
+                  v-if="syslogForwarderStatus == 'failed'"
+                  class="card-row mg-top-sm icon-and-text"
+                >
+                  <NsSvg :svg="ErrorFilled16" class="icon ns-error" />
+                  <span>{{ $t("syslog_forwarder.syslog_export_failed") }}</span>
+                </div>
+                <div class="card-row">
+                  <NsButton
+                    kind="ghost"
+                    :icon="ArrowRight20"
+                    @click="$router.push('/settings/system-logs')"
+                  >
+                    {{ $t("cluster_status.go_to_system_logs") }}
+                  </NsButton>
+                </div>
+              </div>
+            </template>
+          </NsInfoCard>
+        </div>
       </cv-column>
     </cv-row>
   </cv-grid>
@@ -351,6 +419,9 @@ export default {
       subscription_status: "inactive",
       emailNotificationEnabled: false,
       support_active: false,
+      activeLokiInstance: "",
+      cloudLogManagerForwarderStatus: "inactive",
+      syslogForwarderStatus: "inactive",
       loading: {
         getClusterStatus: true,
         listModules: true,
@@ -359,6 +430,7 @@ export default {
         getSubscription: true,
         getEmailNotification: true,
         getSupportSession: true,
+        lokiInstance: true,
       },
       error: {
         name: "",
@@ -369,6 +441,7 @@ export default {
         listCoreModules: "",
         getSubscription: "",
         getEmailNotification: "",
+        lokiInstance: "",
       },
     };
   },
@@ -457,6 +530,7 @@ export default {
   methods: {
     ...mapActions(["setClusterNodesInStore"]),
     retrieveData() {
+      this.getActiveLokiInstance();
       this.getClusterStatus();
       this.listModules();
       this.listCoreModules();
@@ -465,8 +539,10 @@ export default {
       this.getEmailNotification();
     },
     async getSupportSession() {
+      if (!this.leaderNode) {
+        return;
+      }
       this.error.getSupportSession = "";
-      // this.support_active = false;
       this.loading.getSupportSession = true;
       const taskAction = "get-support-session";
 
@@ -496,7 +572,6 @@ export default {
     },
     getSupportSessionCompleted(taskContext, taskResult) {
       const output = taskResult.output;
-      console.log(output);
       this.support_active = output.active;
       this.loading.getSupportSession = false;
     },
@@ -807,6 +882,59 @@ export default {
       }
       this.backups = backups;
       this.loading.listBackups = false;
+    },
+    async getActiveLokiInstance() {
+      this.loading.lokiInstance = true;
+      this.error.lokiInstance = "";
+      const taskAction = "list-loki-instances";
+
+      // register to task abortion
+      this.$root.$once(
+        taskAction + "-aborted",
+        this.getClusterLokiInstancesAborted
+      );
+
+      // register to task completion
+      this.$root.$once(
+        taskAction + "-completed",
+        this.getClusterLokiInstancesCompleted
+      );
+
+      const res = await to(
+        this.createClusterTask({
+          action: taskAction,
+          extra: {
+            isNotificationHidden: true,
+          },
+        })
+      );
+      const err = res[0];
+
+      if (err) {
+        console.error(`error creating task ${taskAction}`, err);
+        this.error.lokiInstance = this.getErrorMessage(err);
+        return;
+      }
+    },
+    getClusterLokiInstancesAborted(taskResult, taskContext) {
+      console.error(`${taskContext.action} aborted`, taskResult);
+      this.error.lokiInstance = this.$t("error.generic_error");
+      this.loading.lokiInstance = false;
+    },
+    getClusterLokiInstancesCompleted(taskContext, taskResult) {
+      for (const instance of taskResult.output.instances) {
+        if (instance.active) {
+          if (instance.instance_label != "") {
+            this.activeLokiInstance = instance.instance_label;
+          } else {
+            this.activeLokiInstance = instance.instance_id;
+          }
+          this.cloudLogManagerForwarderStatus =
+            instance.cloud_log_manager.status;
+          this.syslogForwarderStatus = instance.syslog.status;
+        }
+      }
+      this.loading.lokiInstance = false;
     },
   },
 };

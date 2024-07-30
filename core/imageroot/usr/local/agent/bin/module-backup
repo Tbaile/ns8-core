@@ -99,9 +99,9 @@ if os.path.isfile(install_dir + "/etc/state-exclude.conf"):
 
 # Ensure the restic repository has been initialized
 if agent.run_restic(rdb, repository, repopath, [], ["snapshots"], stdout=subprocess.DEVNULL).returncode == 0:
-    print(f"Repository {repository} is present", file=sys.stderr)
+    print(f"Repository {repository} is present at path {repopath}", file=sys.stderr)
 else:
-    print(f"Initializing repository {repository}", file=sys.stderr)
+    print(f"Initializing repository {repository} at path {repopath}", file=sys.stderr)
     agent.run_restic(rdb, repository, repopath, [], ["init"]).check_returncode()
 
 time_start = int(time.time())
@@ -128,6 +128,24 @@ if stats_proc.returncode == 0:
     backup_status['errors'] = errors
     wrdb.hset(f"module/{module_id}/backup_status/{backup_id}", mapping=backup_status)
 wrdb.close()
+
+try:
+    ometa = {}
+    ometa["module_id"] = module_id
+    ometa["module_ui_name"] = rdb.get(f'module/{module_id}/ui_name') or ""
+    ometa["node_fqdn"] = agent.get_hostname()
+    ometa["cluster_uuid"] = rdb.get("cluster/uuid") or ""
+    ometa["uuid"] = os.environ["MODULE_UUID"]
+    ometa["timestamp"] = time_end
+    ometa["success"] = bool(errors == 0)
+    subprocess.run(["rclone-wrapper", str(backup_id), "rcat", f"REMOTE_PATH/{repopath}.json"],
+        stdout=sys.stderr,
+        input='\n' + json.dumps(ometa, separators=(',', ':')) + '\n',
+        text=True,
+        check=True,
+    )
+except subprocess.CalledProcessError as ex:
+    errors += 1
 
 try:
     subprocess.run(["module-cleanup-state"] + sys.argv[1:], check=True)

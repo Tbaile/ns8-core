@@ -1,5 +1,7 @@
 @import "./carbon";
 @import "./carbon-utils";
+@import "./responsive";
+@import "./utils";
 
 body {
   height: calc(100vh - 3rem);
@@ -80,6 +82,10 @@ a {
 
 .no-mg-bottom {
   margin-bottom: 0 !important;
+}
+
+.mg-left-xs {
+  margin-left: $spacing-02 !important;
 }
 
 .mg-left-sm {

@@ -170,11 +170,11 @@ def get_latest_module(module, rdb):
 
     return f'{source}:{version}'
 
-def get_version_tuple(v):
+def _parse_version_object(v):
     try:
-        vinfo = semver.VersionInfo.parse(v).to_tuple()
+        vinfo = semver.Version.parse(v)
     except:
-        vinfo = (0,)
+        vinfo = semver.Version(0)
     return vinfo
 
 def _synthesize_module_version(minstance):
@@ -191,10 +191,9 @@ def _synthesize_module_version(minstance):
         print(agent.SD_WARNING + "_synthesize_module_version:", ex, file=sys.stderr)
     # Extract the prerelease flag:
     try:
-        vinfo = semver.VersionInfo(minstance["version"])
-        testing = vinfo.prerelease
+        testing = bool(semver.Version.parse(minstance["version"]).prerelease)
     except:
-        testing = False
+        testing = True
     inspect_labels.setdefault("org.nethserver.images", image_url)
     return {
         "tag": minstance["version"],
@@ -229,7 +228,6 @@ def _fetch_metadata_json(module_id, image_name):
         }
     ometadata.setdefault("screenshots", [])
     ometadata.setdefault("repository", "__local__")
-    ometadata.setdefault("testing", "0")
     ometadata.setdefault("repository_updated", repository_updated_timestamp)
     try:
         ometadata['logo'] = glob(f'{path_prefix}apps/{module_id}/img/*logo*png')[0].removeprefix(path_prefix)
@@ -257,7 +255,7 @@ def list_available(rdb, skip_core_modules = False):
             if rmod["source"] in modules:
                 continue # skip duplicated images from lower priority modules
             modules[rmod["source"]] = rmod
-            rmod['versions'].sort(key=lambda v: get_version_tuple(v["tag"]), reverse=True)
+            rmod['versions'].sort(key=lambda v: _parse_version_object(v["tag"]), reverse=True)
     # Integrate the available set with instances that do not belong to any
     # repository. They can be found in the "installed" dict:
     for module_source, module_instances in list_installed(rdb, skip_core_modules).items():
@@ -294,7 +292,7 @@ def list_installed(rdb, skip_core_modules = False):
         installed[url].append({ 'id': vars["MODULE_ID"], 'ui_name': module_ui_name, 'node': node_id, 'node_ui_name': node_ui_name, 'digest': vars["IMAGE_DIGEST"], 'source': url, 'version': tag, 'logo': logo, 'module': image, 'flags': flags})
 
     for instances in installed.values():
-        instances.sort(key=lambda v: get_version_tuple(v["version"]), reverse=True)
+        instances.sort(key=lambda v: _parse_version_object(v["version"]), reverse=True)
 
     return installed
 
@@ -329,7 +327,7 @@ def list_updates(rdb, skip_core_modules = False):
         for version in module["versions"]:
             try:
                 # skip bogus version tag
-                v = semver.VersionInfo.parse(version["tag"])
+                v = semver.Version.parse(version["tag"])
             except:
                 continue
             # Skip testing versions if testing is disabled
@@ -342,7 +340,7 @@ def list_updates(rdb, skip_core_modules = False):
         # Handle multiple instances of the same module
         for instance in installed[module["source"]]:
             try:
-                cur = semver.VersionInfo.parse(instance["version"])
+                cur = semver.Version.parse(instance["version"])
             except:
                 # skip installed instanced with dev version
                 continue
