@@ -88,7 +88,7 @@ RUN --mount=type=cache,target=/app/node_modules/.cache \
 
 FROM scratch as core
 COPY imageroot /
-COPY --from=grafana/logcli:2.9.2-arm64 /usr/bin/logcli /usr/local/bin/logcli.bin
+COPY --from=grafana/logcli:2.9.9-arm64 /usr/bin/logcli /usr/local/bin/logcli.bin
 COPY --from=agent /app/agent /usr/local/bin/agent
 COPY --from=api-server /app/api-server usr/local/bin/api-server
 COPY --from=api-server /app/api-server-logs /usr/local/bin/api-server-logs
